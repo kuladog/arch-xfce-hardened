@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=gThumb
+Comment=
+Exec=gthumb %U
+Icon=gnome-photos
+Path=
+Terminal=false
+StartupNotify=false

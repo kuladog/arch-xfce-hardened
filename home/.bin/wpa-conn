@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+IFACE=$(ls /sys/class/ieee80211/*/device/net/)
+VPN="/home/${USERNAME}/.local/bin/vpn-conn"
+
+
+# initialize wpa_supplicant, set local ip
+sudo -s << EOF
+	wpa_supplicant -B -i "$IFACE" -c /etc/wpa_supplicant/wpa_supplicant.conf &> /dev/null
+	dhclient -v "$IFACE"
+EOF
+
+
+# check for vpn-conn, run if exists
+if [[ -f $VPN ]]; then
+	. "$VPN"
+else
+	echo -e "\nConfiguration file not found."
+fi

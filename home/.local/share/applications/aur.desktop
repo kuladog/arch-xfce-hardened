@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=AUR Search
+GenericName=AUR Launcher
+Comment=
+Keywords=Internet;Browser;Web;
+Exec=firefox https://aur.archlinux.org/
+Icon=system-software-package-manager
+Path=
+Terminal=false
+StartupNotify=false
+Categories=Utility;Internet;

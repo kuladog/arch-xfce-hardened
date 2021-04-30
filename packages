@@ -1,0 +1,180 @@
+#!/usr/bin/env bash
+
+
+set -euo pipefail
+
+
+for OPT in "${PACKAGES[@]}"
+do
+    declare "$OPT"=false
+done
+
+
+pkg_groups () {
+
+  while (( $# )); do
+    case "$1" in
+      0 )
+        GROUP+=("Base")
+        ;;
+      1 )
+        GROUP+=("${PACKAGES[0]}")
+        ;;
+      2 )
+        GROUP+=("${PACKAGES[@]::2}")
+        ;;
+      3 )
+        GROUP+=("${PACKAGES[@]::3}")
+        ;;
+      4 )
+        GROUP+=("${PACKAGES[0]}" "${PACKAGES[3]}")
+        ;;
+      5 )
+        GROUP+=("${PACKAGES[@]::4}")
+        ;;
+      6 )
+        DELETE=(Xorg Xfce Apps Utils)
+        ;;
+      * )
+        ;;
+    esac
+    shift
+  done
+
+  confirm
+}
+
+
+# confirm pkgs to install
+confirm () {
+
+  echo -e "\nPackage groups to be installed:\n"
+
+  for DEL in ${DELETE[@]}; do
+    GROUP=("${GROUP[@]/${DEL}}")
+  done
+
+  echo -e " ${GROUP[*]}" | awk -vRS=" " -vORS=" " '!a[$1]++ {print $1}'
+  sleep 2
+  
+  echo -e "\nInstalling packages ..."
+  install
+}
+
+
+# install package groups
+install () {
+
+  for VAL in ${GROUP[@]}; do
+      declare "$VAL"=true
+  done
+
+  pacman -Syy
+
+  if [[ $Base = true ]]; then
+    echo -e "\nInstalling Base System ..."
+    pacstrap /mnt \
+      base \
+      linux-hardened \
+      linux-firmware \
+      apparmor \
+      dhclient \
+      firewalld \
+      grub \
+      openntpd \
+      sudo \
+      nano \
+      wpa_supplicant
+
+    $CHROOT "systemctl enable apparmor"
+    $CHROOT "systemctl enable firewalld"
+    $CHROOT "systemctl enable openntpd"
+    $CHROOT "systemctl enable wpa_supplicant"
+  fi
+
+  if [[ $Xorg = true || $All = true ]]; then
+    echo -e "\nInstalling X Server ..."
+    pacstrap /mnt \
+      libxxf86vm \
+      xf86-input-libinput \
+      xf86-video-intel \
+      xf86-video-vesa \
+      xorg-server \
+      xorg-xinit
+
+    if [[ $VMCHECK != none ]]; then
+      pacstrap /mnt \
+        spice-vdagent \
+        xf86-video-vmware
+    fi
+  fi
+
+  if [[ $Xfce = true || $All = true ]]; then
+    echo -e "\nInstalling Xfce Desktop ..."
+    pacstrap /mnt \
+      exo \
+      garcon \
+      thunar \
+      thunar-archive-plugin \
+      thunar-volman \
+      tumbler \
+      xfce4-panel \
+      xfce4-power-manager \
+      xfce4-screenshooter \
+      xfce4-session \
+      xfce4-settings \
+      xfce4-terminal \
+      xfconf \
+      xfdesktop \
+      xfwm4 \
+      lxdm
+
+    $CHROOT "systemctl enable lxdm"
+  fi
+
+  if [[ $Apps = true || $All = true ]]; then
+    echo -e "\nInstalling Desktop Applications ..."
+    pacstrap /mnt \
+      atom \
+      engrampa \
+      firefox \
+      gthumb \
+      hexchat \
+      htop \
+      transmission-gtk \
+      veracrypt \
+      vlc \
+      xed
+  fi
+
+  if [[ $Utils = true || $All = true ]]; then
+    echo -e "\nInstalling System Utilities ..."
+    pacstrap /mnt \
+      alsa-utils \
+      base-devel \
+      blueman \
+      bluez \
+      bluez-libs \
+      ffmpeg \
+      firejail \
+      git \
+      gvfs \
+      networkmanager \
+      nm-connection-editor \
+      openssh \
+      pavucontrol \
+      pulseaudio-bluetooth \
+      reflector \
+      unzip \
+      wireguard-tools
+
+    $CHROOT "sudo systemctl enable bluetooth"
+    $CHROOT "systemctl enable NetworkManager"
+    $CHROOT "firecfg"
+  fi
+}
+
+
+# call switch, parse script
+pkg_groups "$@"
+

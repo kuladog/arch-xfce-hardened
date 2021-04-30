@@ -1,0 +1,17 @@
+#
+# ~/.aliases
+#
+
+alias sano='sudo -B nano'
+alias sedit='sudo xed'
+alias upd='sudo pacman -Syu'
+alias get='sudo pacman -S --needed'
+alias remv='sudo pacman -Rsn'
+alias vpnc='nordvpn c'
+alias vpnd='nordvpn d'
+alias vstat='nordvpn status'
+alias scurl='curl --tlsv1.2 --proto =https'
+alias dl='cd ~/Downloads'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'

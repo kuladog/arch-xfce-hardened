@@ -1,0 +1,21 @@
+# Arch Hardened - /etc/default/grub
+#
+# github.com/kuladog
+#
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=0
+GRUB_DISTRIBUTOR="Arch"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet apparmor=1 security=apparmor lockdown=confidentiality lsm=lockdown,yama,apparmor,bpf"
+GRUB_CMDLINE_LINUX="init_on_alloc=1 init_on_free=1 l1tf=full,force page_alloc.shuffle=1 slab_nomerge slub_debug=F spec_store_bypass_disable=on spectre_v2=on vsyscall=none"
+GRUB_DISABLE_RECOVERY=true
+GRUB_GFXMODE=auto
+GRUB_GFXPAYLOAD_LINUX=keep
+GRUB_TERMINAL_INPUT=console
+GRUB_TIMEOUT_STYLE=menu
+
+#GRUB_DISABLE_LINUX_UUID=true
+#GRUB_ENABLE_CRYPTODISK=y
+#GRUB_PRELOAD_MODULES="part_gpt part_msdos"
+#GRUB_TERMINAL_OUTPUT=console
+

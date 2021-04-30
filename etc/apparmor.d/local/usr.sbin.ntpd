@@ -1,0 +1,4 @@
+# openntpd needs access to libressl ca certificate
+
+/etc/libressl/{,cert.pem} r,
+

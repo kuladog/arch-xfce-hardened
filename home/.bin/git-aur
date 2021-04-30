@@ -1,0 +1,11 @@
+#!/bin/bash
+
+[[ -d ~/AUR ]] && cd ~/AUR
+
+echo
+git clone "$1"
+
+echo
+cd  "$(\ls -1dt ./*/ | head -n 1)"
+
+makepkg -sic

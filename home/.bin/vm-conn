@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# for testing in vm /wo network manager
+
+ethernet=$(ls /sys/class/net/ | grep e | head -1)
+vpnconn="/home/${USERNAME}/.local/bin/vpn-conn"
+
+sudo -s << EOF
+  ip link set "$ethernet" up
+  dhclient -v "$ethernet"
+EOF
+
+[[ -f $vpnconn ]] && . "$vpnconn"

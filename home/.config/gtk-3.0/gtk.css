@@ -1,0 +1,17 @@
+
+.xfce4-panel {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.panel {
+  border-radius: 8px;
+}
+
+.tasklist {
+  border-radius: 8px;
+}
+
+#XfcePanelWindow {
+  border-radius: 8px;
+}

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=VLC Player
+Comment=
+Exec=vlc --started-from-file %U
+Icon=multimedia-video-player
+Path=
+Terminal=false
+StartupNotify=false
