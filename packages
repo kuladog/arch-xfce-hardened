@@ -177,4 +177,3 @@ install () {
 
 # call switch, parse script
 pkg_groups "$@"
-
