@@ -49,4 +49,4 @@ bash install.sh
 
 ### Disclaimer
 
-It's not meant to be a general purpose installer so it does have some limitations. It does what it's suppossed to do - for me - perfectly. Please keep in mind it's just a fun project to get some bash time in.. and kill off some pandemic boredom. :smiley:
+As a general purpose installer it has limitations, but it does what it's suppossed to do - for me - perfectly. Please keep in mind it's just a fun project to get some bash time in.. and kill off some pandemic boredom. :smiley:
