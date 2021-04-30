@@ -2,9 +2,9 @@
 
 ### About
 
-I made this [Arch Linux](https://archlinux.org/) installer for my own personal use, but it'll work for anyone looking for a lightweight hardened Arch system. My desktop of choice is [Xfce](https://xfce.org/) and includes basic applications and system utilities. It utilizes the [linux-hardened](https://github.com/anthraxx/linux-hardened) kernel and custom configurations for added security. 
+I made this [Arch Linux](https://archlinux.org/) installer for my own personal use, but it could work for anyone who wants a lightweight hardened system. My desktop of choice is [Xfce](https://xfce.org/) and includes basic applications and system utilities. I use the [linux-hardened](https://github.com/anthraxx/linux-hardened) kernel and custom configurations for added security.
 
-To change which apps are installed, you can add or remove them from the [packages](https://github.com/kuladog/arch-x/blob/main/packages) script. Dotfiles and configuration files can be edited, added, or removed from the `home` and `etc` directories. And, of course, read through the [install script](https://github.com/kuladog/arch-xfce-hardened/blob/main/install.sh) to make sure it's gonna do what you want.
+You can change which apps are installed by adding or removing them from the [packages](https://github.com/kuladog/arch-x/blob/main/packages) script. Dotfiles and configuration files can be edited, added, or removed from the `home` and `etc` directories. And, of course, read through the [install script](https://github.com/kuladog/arch-xfce-hardened/blob/main/install.sh) to make sure it's gonna do what you want.
 
 ![alt text](screenshot.png "Sapphire Linux")
 
