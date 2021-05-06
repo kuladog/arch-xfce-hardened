@@ -112,12 +112,16 @@ install () {
   if [[ $Xfce = true || $All = true ]]; then
     echo -e "\nInstalling Xfce Desktop ..."
     pacstrap /mnt \
+      catfish \
       exo \
       garcon \
+      libxfce4ui \
+      libxfce4util \
       thunar \
       thunar-archive-plugin \
       thunar-volman \
       tumbler \
+      xfce4-notifyd \
       xfce4-panel \
       xfce4-power-manager \
       xfce4-screenshooter \
@@ -138,9 +142,9 @@ install () {
       atom \
       engrampa \
       firefox \
-      gthumb \
       hexchat \
       htop \
+      shotwell \
       transmission-gtk \
       veracrypt \
       vlc \
