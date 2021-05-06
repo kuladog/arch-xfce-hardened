@@ -1,6 +1,6 @@
 [desktop/interface]
 gtk-theme='Mogok-Dark'
-icon-theme='Mogok-Blue-Icons'
+icon-theme='Papirus-Dark'
 
 [org/gtk/settings/file-chooser]
 date-format='regular'

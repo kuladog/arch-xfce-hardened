@@ -1,0 +1,29 @@
+# converted by firecfg
+
+[Desktop Entry]
+Name=Text Editor
+Comment=Edit text files
+Exec=gedit %U
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;
+# TRANSLATORS: Do NOT translate or transliterate this text!
+#              This is an icon file name.
+Icon=gedit
+Categories=GNOME;GTK;Utility;TextEditor;
+Actions=new-window;new-document;
+# TRANSLATORS: Do NOT translate or localize the semicolons!
+#              The list MUST also end with a semicolon!
+#              Search terms to find this application.
+
+Keywords=Text;Editor;Plaintext;Write;gedit;
+DBusActivatable=false
+
+[Desktop Action new-window]
+Name=New Window
+Exec=gedit --new-window
+
+[Desktop Action new-document]
+Name=New Document
+Exec=gedit --new-documen
