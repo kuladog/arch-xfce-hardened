@@ -55,10 +55,10 @@ confirm () {
   done
 
   echo -e " ${GROUP[*]}" | awk -vRS=" " -vORS=" " '!a[$1]++ {print $1}'
+  echo
   sleep 2
   
-  echo -e "\nInstalling packages ..."
-  echo
+  echo -e "\nInstalling packages ...\n"
   install
 }
 
