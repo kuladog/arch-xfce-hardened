@@ -70,7 +70,7 @@ install () {
       declare "$VAL"=true
   done
 
-  pacman -Syy
+  pacman -Syyu
 
   if [[ $Base = true ]]; then
     echo -e "\nInstalling Base System ..."
@@ -113,7 +113,6 @@ install () {
   if [[ $Xfce = true || $All = true ]]; then
     echo -e "\nInstalling Xfce Desktop ..."
     pacstrap /mnt \
-      catfish \
       exo \
       garcon \
       libxfce4ui \
