@@ -1,0 +1,30 @@
+[Added Associations]
+application/xml=org.gnome.gedit.desktop;firefox.desktop;
+text/html=org.gnome.gedit.desktop;firefox.desktop;
+text/x-python=org.gnome.gedit.desktop;atom.desktop;
+application/x-trash=org.gnome.gedit.desktop;
+text/x-install=atom.desktop;org.gnome.gedit.desktop;
+application/octet-stream=org.gnome.gedit.desktop;atom.desktop;
+application/x-shellscript=org.gnome.gedit.desktop;atom.desktop;
+text/plain=org.gnome.gedit.desktop;
+image/png=org.gnome.Shotwell-Viewer.desktop;gimp.desktop;
+application/x-compressed-tar=org.gnome.FileRoller.desktop;
+application/x-sharedlib=org.gnome.gedit.desktop;atom.desktop;
+video/x-matroska=vlc.desktop;
+application/pdf=firefox.desktop;
+audio/flac=vlc.desktop;audacity.desktop;
+application/x-shorten=vlc.desktop;
+audio/x-mpegurl=org.gnome.gedit.desktop;vlc.desktop;
+audio/x-wav=vlc.desktop;audacity.desktop;
+audio/mpeg=vlc.desktop;audacity.desktop;
+image/jpeg=org.gnome.Shotwell-Viewer.desktop;gimp.desktop;
+text/x-python3=org.gnome.gedit.desktop;
+image/bmp=org.gnome.Shotwell-Viewer.desktop;
+image/svg+xml=org.gnome.Shotwell-Viewer.desktop;
+x-scheme-handler/http=exo-web-browser.desktop;
+x-scheme-handler/https=exo-web-browser.desktop;
+application/atom+xml=org.gnome.gedit.desktop;
+
+[Default Applications]
+application/atom+xml=org.gnome.gedit.desktop;
+image/png=org.gnome.Shotwell-Viewer.desktop;

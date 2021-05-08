@@ -163,7 +163,6 @@ install () {
       nm-connection-editor \
       openssh \
       reflector \
-      unzip \
       wireguard-tools
 
 #    $CHROOT "sudo systemctl enable bluetooth"

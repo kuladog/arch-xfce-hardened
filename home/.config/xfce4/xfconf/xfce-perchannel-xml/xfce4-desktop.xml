@@ -26,7 +26,7 @@
         </property>
       </property>
       <property name="monitor0" type="empty">
-        <property name="image-path" type="string" value="/home/dude/Downloads/TEST/config/backgrounds/coraza03.jpg"/>
+        <property name="image-path" type="string" value="/home/*/.local/share/backgrounds/archx-04.jpg"/>
         <property name="image-show" type="bool" value="true"/>
         <property name="image-style" type="int" value="0"/>
       </property>
@@ -34,7 +34,7 @@
         <property name="workspace0" type="empty">
           <property name="color-style" type="int" value="2"/>
           <property name="image-style" type="int" value="3"/>
-          <property name="last-image" type="string" value="/home/dude/Downloads/TEST/config/backgrounds/coraza01.jpg"/>
+          <property name="last-image" type="string" value="/home/*/.local/share/backgrounds/archx-04.jpg"/>
           <property name="rgba1" type="array">
             <value type="double" value="0.368627"/>
             <value type="double" value="0.360784"/>
