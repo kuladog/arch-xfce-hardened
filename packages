@@ -166,7 +166,7 @@ install () {
       unzip \
       wireguard-tools
 
-    $CHROOT "sudo systemctl enable bluetooth"
+#    $CHROOT "sudo systemctl enable bluetooth"
     $CHROOT "systemctl enable NetworkManager"
     $CHROOT "firecfg"
   fi
