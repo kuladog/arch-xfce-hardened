@@ -70,7 +70,7 @@ install () {
       declare "$VAL"=true
   done
 
-  pacman -Syyu
+  pacman -Syy
 
   if [[ $Base = true ]]; then
     echo -e "\nInstalling Base System ..."
@@ -105,8 +105,7 @@ install () {
 
     if [[ $VMCHECK != none ]]; then
       pacstrap /mnt \
-        spice-vdagent \
-        xf86-video-vmware
+        spice-vdagent
     fi
   fi
 
@@ -140,15 +139,15 @@ install () {
     echo -e "\nInstalling Desktop Applications ..."
     pacstrap /mnt \
       atom \
-      engrampa \
+      file-roller \
       firefox \
-      gedit \
       hexchat \
       htop \
       shotwell \
       transmission-gtk \
       veracrypt \
-      vlc
+      vlc \
+      xed
   fi
 
   if [[ $Utils = true || $All = true ]]; then
@@ -156,9 +155,6 @@ install () {
     pacstrap /mnt \
       alsa-utils \
       base-devel \
-      blueman \
-      bluez \
-      bluez-libs \
       ffmpeg \
       firejail \
       git \
@@ -166,8 +162,6 @@ install () {
       networkmanager \
       nm-connection-editor \
       openssh \
-      pavucontrol \
-      pulseaudio-bluetooth \
       reflector \
       unzip \
       wireguard-tools
@@ -181,3 +175,4 @@ install () {
 
 # call switch, parse script
 pkg_groups "$@"
+
