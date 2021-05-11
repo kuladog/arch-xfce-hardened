@@ -62,7 +62,7 @@ makepart () {
 	if [[ $? != 0 ]]; then
 		clear
 		echo -e "Please try again!\n"
-		sleep o.6
+		sleep 0.8
 		makepart
 	fi
 }
@@ -303,10 +303,7 @@ sysconfig () {
 # setup /home directory
 sethome () {
 
-	mkdir -p /mnt/home/"${NAME}"/Documents
-	mkdir -p /mnt/home/"${NAME}"/Downloads
-	mkdir -p /mnt/home/"${NAME}"/Projects
-	mkdir -p /mnt/home/"${NAME}"/AUR
+	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects,AUR}
 
 	# copy dotfiles
 	echo -e "\nCopying files to /home/${NAME} ..."
