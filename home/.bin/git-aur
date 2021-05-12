@@ -1,11 +1,14 @@
 #!/bin/bash
 
-[[ -d ~/AUR ]] && cd ~/AUR
 
-echo
-git clone "$1"
+! [[ -d ~/.aur ]] && mkdir -p ~/.aur
 
-echo
-cd  "$(\ls -1dt ./*/ | head -n 1)"
+(
+  cd ~/.aur
 
-makepkg -sic
+  git clone "$1"
+
+  cd  "$(\ls -1dt ./*/ | head -n 1)"
+
+  makepkg -sic
+)

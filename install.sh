@@ -303,7 +303,7 @@ sysconfig () {
 # setup /home directory
 sethome () {
 
-	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects,AUR}
+	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects,.aur}
 
 	# copy dotfiles
 	echo -e "\nCopying files to /home/${NAME} ..."

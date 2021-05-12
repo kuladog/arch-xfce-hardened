@@ -1,30 +1,13 @@
 [Added Associations]
-application/atom+xml=org.gnome.gedit.desktop;
-application/octet-stream=org.gnome.gedit.desktop;
-application/pdf=firefox.desktop;
-application/x-compressed-tar=org.gnome.FileRoller.desktop;
-application/xml=org.gnome.gedit.desktop;firefox.desktop;
-application/x-sharedlib=org.gnome.gedit.desktop;
-application/x-shellscript=org.gnome.gedit.desktop;
-application/x-shorten=vlc.desktop;
-application/x-trash=org.gnome.gedit.desktop;
-audio/x-mpegurl=org.gnome.gedit.desktop;vlc.desktop;
-image/bmp=org.gnome.Shotwell-Viewer.desktop;
-image/jpeg=org.gnome.Shotwell-Viewer.desktop;
-image/png=org.gnome.Shotwell-Viewer.desktop;
-image/svg+xml=org.gnome.Shotwell-Viewer.desktop;
-text/html=org.gnome.gedit.desktop;firefox.desktop;
-text/plain=org.gnome.gedit.desktop;
-text/x-install=org.gnome.gedit.desktop;
-text/x-python3=org.gnome.gedit.desktop;
-text/x-python=org.gnome.gedit.desktop;
-video/x-matroska=vlc.desktop;
-x-scheme-handler/http=exo-web-browser.desktop;
-x-scheme-handler/https=exo-web-browser.desktop;
 
 [Default Applications]
-application/atom+xml=org.gnome.gedit.desktop;
-image/png=org.gnome.Shotwell-Viewer.desktop;
-audio/x-wav=vlc.desktop;
-audio/mpeg=vlc.desktop;
 audio/flac=vlc.desktop;
+audio/mpeg=vlc.desktop;
+audio/x-wav=vlc.desktop;
+image/bmp=org.gnome.Shotwell-Viewer.desktop;
+image/git=org.gnome.Shotwell-Viewer.desktop;
+image/jpeg=org.gnome.Shotwell-Viewer.desktop;
+image/png=org.gnome.Shotwell-Viewer.desktop;
+text/plain=xed.desktop;
+video/x-matroska=vlc.desktop;
+
