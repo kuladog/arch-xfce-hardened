@@ -206,9 +206,9 @@ makefstab () {
 
 		{
 		echo "/tmp	/var/tmp	none	rw,nodev,nosuid,noexec,bind  0 0"
-		echo "tmpfs	/tmp		tmpfs	rw,nodev,nosuid,noexec  	0 0"
+		echo "tmpfs	/tmp		tmpfs	rw,nodev,nosuid,noexec  0 0"
 		echo "tmpfs	/dev/shm	tmpfs	rw,nodev,nosuid,noexec	0 0"
-		echo "proc	/proc		proc	rw,nodev,noexec,nosuid    0 0"
+		echo "proc	/proc		proc	rw,nodev,nosuid,noexec  0 0"
 		} >> "$FSTAB"
 	fi
 }
