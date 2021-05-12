@@ -1,11 +1,33 @@
-[desktop/interface]
-gtk-theme='Mogok-Dark'
+[gnome/desktop/interface]
 icon-theme='Papirus-Dark'
 
-[org/gtk/settings/file-chooser]
+[gnome/gedit/plugins]
+active-plugins=['spell', 'sort', 'modelines', 'filebrowser', 'docinfo']
+
+[gnome/gedit/preferences/editor]
+auto-indent=true
+bracket-matching=true
+highlight-current-line=true
+insert-spaces=true
+scheme='chameleon'
+tabs-size=uint32 4
+wrap-last-split-mode='word'
+
+[gnome/gedit/preferences/ui]
+show-tabs-mode='auto'
+statusbar-visible=false
+
+[gnome/gedit/state/window]
+bottom-panel-size=140
+side-panel-active-page='GeditWindowDocumentsPanel'
+side-panel-size=200
+size=(680, 720)
+state=128
+
+[gtk/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
-show-hidden=true
+show-hidden=false
 show-size-column=true
 show-type-column=true
 sidebar-width=148
@@ -14,26 +36,25 @@ sort-directories-first=false
 sort-order='ascending'
 type-format='category'
 
-[org/x/editor/plugins]
-active-plugins=['sort', 'docinfo', 'spell']
+[x/editor/plugins]
+active-plugins=['textsize', 'spell', 'sort', 'open-uri-context-menu', 'joinlines', 'filebrowser', 'docinfo', 'bracketcompletion']
 
-[org/x/editor/plugins/filebrowser/on-load]
-root='file:///'
-tree-view=true
-virtual-root='file:///home/'
-
-[org/x/editor/preferences/editor]
+[x/editor/preferences/editor]
 bracket-matching=true
 display-line-numbers=true
-scheme='tango'
+display-right-margin=true
+highlight-current-line=true
+right-margin-position=uint32 80
+scheme='chameleon'
 
-[org/x/editor/preferences/ui]
-statusbar-visible=true
+[x/editor/preferences/ui]
+enable-tab-scrolling=false
+statusbar-visible=false
 toolbar-visible=false
 
-[org/x/editor/state/window]
+[x/editor/state/window]
 bottom-panel-size=140
 side-panel-active-page=827629879
 side-panel-size=200
-size=(644, 668)
+size=(680, 720)
 state=128
