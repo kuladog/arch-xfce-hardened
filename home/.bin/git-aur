@@ -3,6 +3,7 @@
 
 ! [[ -d ~/.aur ]] && mkdir -p ~/.aur
 
+
 (
   cd ~/.aur
 

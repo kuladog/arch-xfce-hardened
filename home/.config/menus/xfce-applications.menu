@@ -142,6 +142,7 @@
         </Include>
     </Menu>
     <Exclude>
+        <Filename>xfce4-about.desktop</Filename>
         <Filename>exo-mail-reader.desktop</Filename>
         <Filename>xfce4-mail-reader.desktop</Filename>
         <Filename>xfce4-web-browser.desktop</Filename>
