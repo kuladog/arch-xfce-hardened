@@ -147,7 +147,8 @@ install () {
       transmission-gtk \
       veracrypt \
       vlc \
-      xed
+      xed \
+      xreader
   fi
 
   if [[ $Utils = true || $All = true ]]; then
