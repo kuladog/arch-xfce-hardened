@@ -218,6 +218,8 @@ makefstab () {
 		echo "proc	/proc		proc	rw,nodev,nosuid,noexec  0 0"
 		} >> "$FSTAB"
 	fi
+
+  status
 }
 
 
@@ -295,8 +297,9 @@ sysconfig () {
 	# configure firewalld
 	if $CHROOT "pacman -Qi firewalld" &> /dev/null; then
 		echo -e "\nConfiguring firewalld ..."
-		$CHROOT "firewall-offline-cmd --set-default-zone=drop"
-		$CHROOT "firewall-offline-cmd --add-icmp-block-inversion"
+		$CHROOT "firewall-offline-cmd --set-default-zone=drop" &> /dev/null
+		$CHROOT "firewall-offline-cmd --add-icmp-block-inversion" &> /dev/null
+    status
 	fi
 
 	# config wpa_supplicant if needed
