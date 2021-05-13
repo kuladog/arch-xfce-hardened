@@ -198,7 +198,6 @@ makefstab () {
 	FSTAB=/mnt/etc/fstab
 
 	# generate fstab
-	echo -e "\nGenerating /mnt/etc/fstab ..."
 	genfstab -U /mnt >> "$FSTAB"
 
 	if [[ $? = 0 ]]; then
@@ -253,12 +252,12 @@ sysconfig () {
 	$CHROOT "grub-mkconfig -o /boot/grub/grub.cfg"
 
 	# create fstab
+	echo -e "\nGenerating fstab ..."
 	makefstab
 
 	# set system localization
-	echo -e "\nSetting system localization ..."
 	sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /mnt/etc/locale.gen
-	$CHROOT "locale-gen"
+	$CHROOT "locale-gen" &> /dev/null
 	echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
 	status
 
@@ -323,7 +322,7 @@ sethome () {
 
 	# copy dotfiles
 	if [[ -d ${SOURCE}/home ]]; then
-		echo -e "\nCopying files to /home/${NAME} ..."
+		echo -e "\nCopying dotfiles to /home/${NAME} ..."
 		if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 			cp -r home/. /mnt/home/"${NAME}"
 		else
@@ -337,7 +336,7 @@ sethome () {
 		status
 	fi
 
-	echo -e "\nSetting permissions for /home/${NAME} ..."
+	echo -e "\nSetting permissions for /home/* ..."
 	$CHROOT "chown -R ${NAME}:${NAME} /home/${NAME}"
 	$CHROOT "chmod -R 750 /home/${NAME}"
 	status
