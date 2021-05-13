@@ -219,7 +219,7 @@ makefstab () {
 		} >> "$FSTAB"
 	fi
 
-  status
+	status
 }
 
 
@@ -282,7 +282,7 @@ sysconfig () {
 
 	# configure lxdm
 	if $CHROOT "pacman -Qi lxdm" &> /dev/null; then
-		echo -e "\nConfiguring lxdm ..."
+		echo -e "\nConfiguring display manager ..."
 		sed -i "s|<user>|${NAME}|g" /mnt/etc/lxdm/lxdm.conf
 		status
 	fi
@@ -328,11 +328,11 @@ sethome () {
 			cp -r home/. /mnt/home/"${NAME}"
 		else
 			(
-      cd "${SOURCE}"/home;
+			cd "${SOURCE}"/home;
 			for f in .aliases .profile .bashrc .inputrc .bin; do
 			cp -r "$f" /mnt/home/"${NAME}"
 			done
-      )
+			)
 		fi
 		status
 	fi
