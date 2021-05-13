@@ -26,6 +26,15 @@ main () {
 }
 
 
+status () {
+	if [[ $? -eq 0 ]]; then
+		echo "success"
+	else
+		echo "failed"
+	fi
+}
+
+
 # greeter prompt to run installer
 greeter () {
 
@@ -129,7 +138,7 @@ selectpkgs () {
 	if [[ -f ${SOURCE}/packages ]]; then
 		source packages 0 $OPTIONS
 	else
-		echo "Source file not found."
+		echo "ERROR: Source 'packages' not found."
 	fi
 }
 
@@ -138,19 +147,17 @@ selectpkgs () {
 cpconfigs () {
 
 	# copy to /etc
-	echo -e "\nCopying config files to /etc ..."
 	if [[ -d ${SOURCE}/etc ]]; then
+		echo -e "\nCopying config files to /etc ..."
 		cp -r etc/. /mnt/etc
-	else
-		echo -e "\nSource directory not found."
+		status
 	fi
 
 	# copy to /usr
-	echo -e "\nCopying config files to /usr ..."
 	if [[ -d ${SOURCE}/usr ]]; then
+		echo -e "\nCopying config files to /usr ..."
 		cp -r usr/. /mnt/usr
-	else
-		echo -e "\nSource directory not found."
+		status
 	fi
 }
 
@@ -251,32 +258,38 @@ sysconfig () {
 	sed -i 's/#en_US.UTF-8/en_US.UTF-8/' /mnt/etc/locale.gen
 	$CHROOT "locale-gen"
 	echo "LANG=en_US.UTF-8" > /mnt/etc/locale.conf
+	status
 
 	# set timezone and hardware clock
 	echo -e "\nSetting timezone and clock ..."
 	$CHROOT "ln -sf /usr/share/zoneinfo/America/Vancouver /etc/localtime"
 	$CHROOT "hwclock --systohc --utc"
+	status
 
 	# configure /etc/hosts file
 	echo -e "\nConfiguring /etc/hosts file ..."
 	echo -e "127.0.0.1\tlocalhost\n127.0.1.1\t$HOST" > /mnt/etc/hosts
+	status
 
 	# configure arch-sudo file
 	if [[ -f /mnt/etc/sudoers.d/arch-sudo ]]; then
 		echo -e "\nConfiguring arch-sudo file..."
 		sed -i "s|<user>|${NAME}|g" /mnt/etc/sudoers.d/arch-sudo
+		status
 	fi
 
 	# configure lxdm
 	if $CHROOT "pacman -Qi lxdm" &> /dev/null; then
 		echo -e "\nConfiguring lxdm ..."
 		sed -i "s|<user>|${NAME}|g" /mnt/etc/lxdm/lxdm.conf
+		status
 	fi
 
 	# configure reflector
 	if $CHROOT "pacman -Qi reflector" &> /dev/null; then
 		echo -e "\nConfiguring reflector ..."
 		$CHROOT "reflector @/etc/xdg/reflector/reflector.conf --save /etc/pacman.d/mirrorlist"
+		status
 	fi
 
 	# configure firewalld
@@ -306,21 +319,25 @@ sethome () {
 	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects,.aur}
 
 	# copy dotfiles
-	echo -e "\nCopying files to /home/${NAME} ..."
-
 	if [[ -d ${SOURCE}/home ]]; then
+		echo -e "\nCopying files to /home/${NAME} ..."
 		if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 			cp -r home/. /mnt/home/"${NAME}"
 		else
-			( cd "${SOURCE}"/home;
+			(
+      cd "${SOURCE}"/home;
 			for f in .aliases .profile .bashrc .inputrc .bin; do
-				cp -r "$f" /mnt/home/"${NAME}"
-			done )
+			cp -r "$f" /mnt/home/"${NAME}"
+			done
+      )
 		fi
+		status
 	fi
 
+	echo -e "\nSetting permissions for /home/${NAME} ..."
 	$CHROOT "chown -R ${NAME}:${NAME} /home/${NAME}"
 	$CHROOT "chmod -R 750 /home/${NAME}"
+	status
 }
 
 
@@ -332,14 +349,14 @@ themes () {
 		echo -e "\nInstalling desktop themes ..."
 		for f in "${SOURCE}"/home/.themes/*.tar.xz; do
 			tar xf "$f" -C /mnt/usr/share/themes/
-			echo "done"
 		done
+		status
 
 		echo -e "\nInstalling icon themes ..."
 		for f in "${SOURCE}"/home/.icons/*.tar.xz; do
 			tar xf "$f" -C /mnt/usr/share/icons/
-			echo "done"
 		done
+		status
 	fi
 }
 
@@ -360,4 +377,3 @@ goodbye () {
 
 # call main, parse script
 main "$@"
-

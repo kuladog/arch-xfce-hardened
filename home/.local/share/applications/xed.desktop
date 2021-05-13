@@ -1,9 +1,9 @@
 # converted by firecfg
 
 [Desktop Entry]
-Name=Text Editor
+Name=Xed Editor
 Comment=Edit text files
-Exec=gedit %U
+Exec=xed %U
 Terminal=false
 Type=Application
 StartupNotify=true
@@ -22,8 +22,8 @@ DBusActivatable=false
 
 [Desktop Action new-window]
 Name=New Window
-Exec=gedit --new-window
+Exec=xed --new-window
 
 [Desktop Action new-document]
 Name=New Document
-Exec=gedit --new-documen
+Exec=xed --new-documen

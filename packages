@@ -166,7 +166,6 @@ install () {
       reflector \
       wireguard-tools
 
-#    $CHROOT "sudo systemctl enable bluetooth"
     $CHROOT "systemctl enable NetworkManager"
     $CHROOT "firecfg"
   fi
