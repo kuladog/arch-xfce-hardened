@@ -1,0 +1,10 @@
+# /etc/sudoers.d/local-sudo
+
+Defaults	env_reset
+Defaults	use_pty
+Defaults	umask_override
+Defaults	umask=0027
+Defaults	secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+root ALL=(ALL) ALL
+%wheel ALL=(ALL) NOPASSWD: ALL

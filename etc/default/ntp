@@ -1,8 +1,5 @@
 # Arch Hardened - /etc/default/ntp
-#
-# github.com/kuladog
-#
-#
+
 # -4 Force DNS resolution of host names to the IPv4
 # -g Allow hwclock to be set to any value without restriction
 # -q Exit just after the first time the clock is set

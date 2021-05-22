@@ -1,9 +1,0 @@
-# ~/.config/firejail/global.local
-#
-# github.com/kuladog
-#
-
-apparmor
-machine-id
-nonewprivs
-x11 xorg

@@ -1,0 +1,21 @@
+[Added Associations]
+
+[Default Applications]
+application/pdf=xreader.desktop
+application/x-desktop=org.gnome.gedit.desktop
+application/xml=org.gnome.gedit.desktop
+application/x-shellscript=org.gnome.gedit.desktop
+application/x-xz-compressed-tar=org.gnome.FileRoller.desktop
+audio/flac=vlc.desktop
+audio/mp3=vlc.desktop
+audio/mpeg=vlc.desktop
+audio/wav=vlc.desktop
+image/gif=org.gnome.Shotwell-Viewer.desktop
+image/jpeg=org.gnome.Shotwell-Viewer.desktop
+image/png=org.gnome.Shotwell-Viewer.desktop
+image/svg+xml=org.gnome.Shotwell-Viewer.desktop
+text/plain=org.gnome.gedit.desktop
+text/x-matlab=org.gnome.gedit.desktop
+video/x-matroska=vlc.desktop
+video/x-msvideo=vlc.desktop
+

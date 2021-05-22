@@ -1,0 +1,11 @@
+# ~/.config/firejail/xed.local
+
+noblacklist ${HOME}/
+
+# apparmor - makes settings immutable
+# net none - makes settings immutable
+caps.drop all
+machine-id
+protocol unix
+
+private-tmp

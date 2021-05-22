@@ -1,0 +1,4 @@
+# ~/.config/firejail/file-roller.local
+
+net none
+protocol unix

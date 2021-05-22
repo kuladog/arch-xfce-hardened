@@ -1,0 +1,4 @@
+# ~/.config/firejail/vlc.local
+
+net none
+protocol unix

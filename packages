@@ -141,13 +141,13 @@ install () {
       atom \
       file-roller \
       firefox \
+      gedit \
       hexchat \
       htop \
       shotwell \
       transmission-gtk \
       veracrypt \
       vlc \
-      xed \
       xreader
   fi
 

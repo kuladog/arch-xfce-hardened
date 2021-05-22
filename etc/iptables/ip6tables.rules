@@ -1,4 +1,4 @@
-# empty iptable6 hard rules
+# empty iptable6 rules (hardened)
 
 *filter
 :INPUT DROP [0:0]

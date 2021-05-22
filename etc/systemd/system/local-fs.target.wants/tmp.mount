@@ -1,7 +1,4 @@
 # /etc/systemd/system/local-fs.target.wants/tmp.mount
-#
-# github.com/kuladog
-#
 
 [Mount]
 What=tmpfs

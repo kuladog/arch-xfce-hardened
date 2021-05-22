@@ -21,7 +21,8 @@ main () {
 	cpconfigs
 	sysconfig
 	sethome
-	themes
+#	themes
+  themes2
 	goodbye
 }
 
@@ -211,10 +212,10 @@ makefstab () {
 		"$FSTAB"
 
 		{
-		echo "/tmp	/var/tmp	none	rw,nodev,nosuid,noexec,bind  0 0"
-		echo "tmpfs	/tmp		tmpfs	rw,nodev,nosuid,noexec  0 0"
-		echo "tmpfs	/dev/shm	tmpfs	rw,nodev,nosuid,noexec	0 0"
-		echo "proc	/proc		proc	rw,nodev,nosuid,noexec  0 0"
+		echo "/tmp	/var/tmp	none	nodev,nosuid,noexec,bind  0 0"
+		echo "tmpfs	/tmp		tmpfs	nodev,nosuid,noexec  0 0"
+		echo "tmpfs	/dev/shm	tmpfs	nodev,nosuid,noexec	0 0"
+		echo "proc	/proc		proc nodev,nosuid,noexec  0 0"
 		} >> "$FSTAB"
 	fi
 
@@ -318,18 +319,18 @@ sysconfig () {
 # setup /home directory
 sethome () {
 
-	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects,.aur}
+	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects}
 
 	# copy dotfiles
-	if [[ -d ${SOURCE}/home ]]; then
+	if [[ -d ${SOURCE}/skel ]]; then
 		echo -e "\nCopying dotfiles to /home/${NAME} ..."
 		if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
-			cp -r home/. /mnt/home/"${NAME}"
+			cp -r skel /mnt/etc/
 		else
 			(
-			cd "${SOURCE}"/home;
+			cd "${SOURCE}"/skel;
 			for f in .aliases .profile .bashrc .inputrc .bin; do
-			cp -r "$f" /mnt/home/"${NAME}"
+			cp -r "$f" /mnt/etc/skel
 			done
 			)
 		fi
@@ -348,15 +349,39 @@ themes () {
 
 	if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 
+    if [[ -d ${SOURCE}/usr/share ]]; then
+      cp -r usr/share/ /mnt/usr
+
 		echo -e "\nInstalling desktop themes ..."
-		for f in "${SOURCE}"/home/.themes/*.tar.xz; do
-			tar xf "$f" -C /mnt/usr/share/themes/
+		for f in "${SOURCE}"/usr/share/themes/*.tar.xz; do
+			tar xf "$f" -C /mnt/usr/share/themes && rm "$f"
 		done
 		status
 
 		echo -e "\nInstalling icon themes ..."
-		for f in "${SOURCE}"/home/.icons/*.tar.xz; do
-			tar xf "$f" -C /mnt/usr/share/icons/
+		for f in "${SOURCE}"/usr/share/icons/*.tar.xz; do
+			tar xf "$f" -C /mnt/usr/share/icons && rm "$f"
+		done
+		status
+	fi
+}
+
+themes2 () {
+
+	if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
+
+    if [[ -d ${SOURCE}/usr/share ]]; then
+      cp -r ./usr/share/ /mnt/usr
+
+		echo -e "\nInstalling desktop themes ..."
+		for f in /mnt/usr/share/themes/*.tar.xz; do
+			tar xf "$f" && rm "$f"
+		done
+		status
+
+		echo -e "\nInstalling icon themes ..."
+		for f in /mnt/usr/share/icons/*.tar.xz; do
+			tar xf "$f" && rm "$f"
 		done
 		status
 	fi

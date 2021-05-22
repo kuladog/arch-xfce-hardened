@@ -1,7 +1,4 @@
 # Arch Hardened - /etc/pacman.d/hooks
-#
-# github.com/kuladog
-#
 
 [Trigger]
 Type = Path
