@@ -148,7 +148,14 @@ install () {
       transmission-gtk \
       veracrypt \
       vlc \
-      xreader
+      xreader \
+      dnsmasq \
+      ebtables \
+      iptables \
+      libvirt \
+      qemu \
+      spice-gtk \
+      virt-manager
   fi
 
   if [[ $Utils = true || $All = true ]]; then

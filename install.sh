@@ -347,44 +347,47 @@ sethome () {
 # configure desktop theme
 themes () {
 
-	if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
+  if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 
     if [[ -d ${SOURCE}/usr/share ]]; then
       cp -r usr/share/ /mnt/usr
 
-		echo -e "\nInstalling desktop themes ..."
-		for f in "${SOURCE}"/usr/share/themes/*.tar.xz; do
-			tar xf "$f" -C /mnt/usr/share/themes && rm "$f"
-		done
-		status
+      echo -e "\nInstalling desktop themes ..."
+      for f in "${SOURCE}"/home/.themes/*.tar.xz; do
+        tar xf "$f" -C /mnt/usr/share/themes
+      done
+      status
 
-		echo -e "\nInstalling icon themes ..."
-		for f in "${SOURCE}"/usr/share/icons/*.tar.xz; do
-			tar xf "$f" -C /mnt/usr/share/icons && rm "$f"
-		done
-		status
-	fi
+      echo -e "\nInstalling icon themes ..."
+      for f in "${SOURCE}"/home/.icons/*.tar.xz; do
+        tar xf "$f" -C /mnt/usr/share/icons
+      done
+      status
+    fi
+  fi
 }
+
 
 themes2 () {
 
-	if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
+  if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 
     if [[ -d ${SOURCE}/usr/share ]]; then
       cp -r ./usr/share/ /mnt/usr
 
-		echo -e "\nInstalling desktop themes ..."
-		for f in /mnt/usr/share/themes/*.tar.xz; do
-			tar xf "$f" && rm "$f"
-		done
-		status
+      echo -e "\nInstalling desktop themes ..."
+      for f in "${SOURCE}"/usr/share/themes/*.tar.xz; do
+        tar xf "$f" -C /mnt/usr/share/themes/*.tar.xz
+      done
+      status
 
-		echo -e "\nInstalling icon themes ..."
-		for f in /mnt/usr/share/icons/*.tar.xz; do
-			tar xf "$f" && rm "$f"
-		done
-		status
-	fi
+      echo -e "\nInstalling icon themes ..."
+      for f in "${SOURCE}"/usr/share/icons/*.tar.xz; do
+        tar xf "$f" -C /mnt/usr/share/icons/*.tar.xz
+      done
+      status
+    fi
+  fi
 }
 
 
