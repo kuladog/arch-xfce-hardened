@@ -2,8 +2,8 @@
 # ~/.aliases
 #
 
-alias sano='sudo -B nano'
-alias sedit='sudo xed'
+alias sano='sudo nano -Blc'
+alias sedit='sudo gedit'
 alias upd='sudo pacman -Syu'
 alias get='sudo pacman -S --needed'
 alias remv='sudo pacman -Rsn'
