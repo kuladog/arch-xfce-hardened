@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Updater
+Comment=
+Exec=sudo pacman -Syu -y
+Terminal=true
+Type=Application
+StartupNotify=false
+MimeType=text/plain;
+Icon=mail-send-receive
+Categories=GNOME;GTK;Utility;
+DBusActivatable=false
