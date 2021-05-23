@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Exec=sudo pacman -Syu -y
+Icon=system-restart-panel
+StartupNotify=false
+Terminal=true
+Categories=Utility;X-XFCE;X-Xfce-Toplevel;
+OnlyShowIn=XFCE;
+X-AppStream-Ignore=True
+Name=Updater
+Comment=
+X-XFCE-Source=file:///usr/share/applications/xfce4-terminal-emulator.desktop
+Path=
