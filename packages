@@ -150,11 +150,8 @@ install () {
       vlc \
       xreader \
       dnsmasq \
-      ebtables \
-      iptables \
       libvirt \
       qemu \
-      spice-gtk \
       virt-manager
   fi
 

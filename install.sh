@@ -377,13 +377,13 @@ themes2 () {
 
       echo -e "\nInstalling desktop themes ..."
       for f in "${SOURCE}"/usr/share/themes/*.tar.xz; do
-        tar xf "$f" -C /mnt/usr/share/themes/*.tar.xz
+        tar xf "$f" -C /mnt/usr/share/themes
       done
       status
 
       echo -e "\nInstalling icon themes ..."
       for f in "${SOURCE}"/usr/share/icons/*.tar.xz; do
-        tar xf "$f" -C /mnt/usr/share/icons/*.tar.xz
+        tar xf "$f" -C /mnt/usr/share/icons
       done
       status
     fi
