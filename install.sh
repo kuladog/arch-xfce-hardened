@@ -7,7 +7,6 @@ set -euo pipefail
 clear
 
 
-VMCHECK=$(systemd-detect-virt)
 SOURCE=$(dirname "${BASH_SOURCE[0]}")
 CHROOT="arch-chroot /mnt /bin/bash -c"
 
@@ -39,16 +38,17 @@ status () {
 # greeter prompt to run installer
 greeter () {
 
-	echo -e "You're about to install Arch Linux (hardened)\n"
-	read -r -p "Continue? [Y/n] "
+	echo -e "\nYou're about to install Arch Linux (hardened)\n"
+	read -r -p" Continue? [Y/n] "; clear
 
 	case "${REPLY,,}" in
 	 y)
 	 	echo -e "\nContinuing to installation ...\n"
-		sleep 0.5
+		sleep 1.5
+		clear
 		;;
 	 n)
-		echo -e "\nOK, maybe next time!"
+		echo -e "\nOK, maybe next time!\n"
 		exit
 		;;
 	 *)
@@ -59,22 +59,26 @@ greeter () {
 }
 
 
+
 # choose device, partition with fdisk
 makepart () {
 
-	echo -e "Where would you like to install?\n"
-	lsblk
+	echo -e "\nCurrent local drives available:\n"
+	lsblk | grep "sd\|vd"
 
-	echo -e "\nEnter device to partition (eg; /dev/sdx)\n"
-	read -r -p "> " DEVICE; clear
+	echo -e "\nEnter device to partition (sdx, vda, etc.)\n"
+	read -r -p "> " DEVICE
+	clear
 
-	fdisk "$DEVICE"
-	if [[ $? != 0 ]]; then
+	DEVCHECK=($(grep -o "^sd\w*\|^vd\w*"))
+	if [[ ! ${DEVCHECK[@]} =~ ${DEVICE} ]]
 		clear
 		echo -e "Please try again!\n"
 		sleep 0.8
 		makepart
 	fi
+
+	cfdisk /dev/"${DEVICE,,}"
 }
 
 
@@ -303,7 +307,7 @@ sysconfig () {
 	fi
 
 	# config wpa_supplicant if needed
-	if [[ $VMCHECK = none ]]; then
+	if [[ $(systemd-detect-virt) = none ]]; then
 		if $CHROOT "pacman -Qi networkmanager" &> /dev/null; then
 			:
 		else
