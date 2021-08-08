@@ -57,7 +57,7 @@ confirm () {
   echo -e " ${GROUP[*]}" | awk -vRS=" " -vORS=" " '!a[$1]++ {print $1}'
   echo
   sleep 2
-  
+
   echo -e "\nInstalling packages ...\n"
   install
 }
@@ -69,8 +69,6 @@ install () {
   for VAL in ${GROUP[@]}; do
       declare "$VAL"=true
   done
-
-  pacman -Syy
 
   if [[ $Base = true ]]; then
     echo -e "\nInstalling Base System ..."
@@ -103,9 +101,8 @@ install () {
       xorg-server \
       xorg-xinit
 
-    if [[ $VMCHECK != none ]]; then
-      pacstrap /mnt \
-        spice-vdagent
+    if [[ $(systemd-detect-virt) != none ]]; then
+      pacstrap /mnt spice-vdagent
     fi
   fi
 
@@ -178,4 +175,3 @@ install () {
 
 # call switch, parse script
 pkg_groups "$@"
-
