@@ -19,8 +19,7 @@
         <value type="int" value="6"/>
         <value type="int" value="2"/>
         <value type="int" value="5"/>
-        <value type="int" value="9"/>
-        <value type="int" value="12"/>
+        <value type="int" value="13"/>
         <value type="int" value="10"/>
         <value type="int" value="7"/>
         <value type="int" value="11"/>
@@ -70,13 +69,10 @@
     <property name="plugin-10" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
     </property>
-    <property name="plugin-9" type="string" value="launcher">
+    <property name="plugin-13" type="string" value="launcher">
       <property name="items" type="array">
-        <value type="string" value="16217334811.desktop"/>
+        <value type="string" value="16333948133.desktop"/>
       </property>
-    </property>
-    <property name="plugin-12" type="string" value="pulseaudio">
-      <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
     </property>
   </property>
 </channel>

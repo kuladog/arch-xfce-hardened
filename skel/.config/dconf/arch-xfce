@@ -1,4 +1,5 @@
 [gnome/desktop/interface]
+gtk-theme='Adwaita-dark'
 icon-theme='Papirus-Dark'
 
 [gnome/gedit/plugins]

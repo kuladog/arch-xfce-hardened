@@ -1,11 +1,13 @@
-// Arch Hardened ~/.mozilla/firefox/*.default-release/
+//   Arch Xfce Hardened ~/.mozilla/firefox/*.default-release/
 //
-// Removed extensions from /usr/lib64/firefox/browser/features
-//  - doh-rollout@mozilla.org.xpi
-//  - screenshots@mozilla.org.xpi
-//  - webcompat-reporter@mozilla.org.xpi
 //
-// Dumped user modified preferences, added some no-telemetry tweaks
+//   Removed extensions from /usr/lib64/firefox/browser/features
+//    - doh-rollout@mozilla.org.xpi
+//    - screenshots@mozilla.org.xpi
+//    - webcompat-reporter@mozilla.org.xpi
+//
+//   Dumped user modified preferences, added some no-telemetry tweaks
+//
 //
 user_pref("accessibility.browsewithcaret_shortcut.enabled", false);
 user_pref("accessibility.typeaheadfind.flashBar", 0);
@@ -59,7 +61,7 @@ user_pref("browser.search.suggest.enabled", false);
 user_pref("browser.send_pings", false);
 user_pref("browser.send_pings.require_same_host", true);
 user_pref("browser.startup.homepage", "https://duckduckgo.com/lite");
-user_pref("browser.tabs.drawinTitlebar", false);
+user_pref("browser.tabs.drawinTitlebar", true);
 user_pref("browser.toolbars.bookmarks.visibility", "never");
 user_pref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"home-button\",\"customizableui-special-spring1\",\"urlbar-container\",\"bookmarks-menu-button\",\"downloads-button\",\"customizableui-special-spring2\",\"fxa-toolbar-menu-button\",\"jid1-mnnxcxisbpnsxq_jetpack-browser-action\",\"ublock0_raymondhill_net-browser-action\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"personal-bookmarks\"]},\"seen\":[\"developer-button\",\"jid1-mnnxcxisbpnsxq_jetpack-browser-action\",\"ublock0_raymondhill_net-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"toolbar-menubar\",\"TabsToolbar\",\"PersonalToolbar\"],\"currentVersion\":16,\"newElementCount\":4}");
 user_pref("browser.uidensity", 1);

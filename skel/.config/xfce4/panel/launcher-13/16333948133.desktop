@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Updater
+Comment=
+Exec=sudo pacman -Syu
+Icon=system-upgrade
+Path=
+Terminal=true
+StartupNotify=false

@@ -1,5 +1,5 @@
 #
-# ~/.aliases
+# ~/.bash_aliases
 #
 
 alias sano='sudo nano -Blc'

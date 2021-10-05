@@ -20,8 +20,7 @@ main () {
 	cpconfigs
 	sysconfig
 	sethome
-#	themes
-  themes2
+	decorate
 	goodbye
 }
 
@@ -38,7 +37,7 @@ status () {
 # greeter prompt to run installer
 greeter () {
 
-	echo -e "\nYou're about to install Arch Linux (hardened)\n"
+	echo -e "\nYou're about to install Arch Linux (Hardened)\n"
 	read -r -p" Continue? [Y/n] "; clear
 
 	case "${REPLY,,}" in
@@ -64,27 +63,31 @@ greeter () {
 makepart () {
 
 	echo -e "\nCurrent local drives available:\n"
-	lsblk | grep "sd\|vd"
+	lsblk | grep "sd\|hd\|vd"
 
-	echo -e "\nEnter device to partition (sdx, vda, etc.)\n"
-	read -r -p "> " DEVICE
+	echo
+	echo -e "\nEnter device to partition (sdc, vda, etc.)\n"
+	read -r -p "> " DISK; DISK=${DISK,,}
 	clear
 
-	DEVCHECK=($(grep -o "^sd\w*\|^vd\w*"))
-	if [[ ! ${DEVCHECK[@]} =~ ${DEVICE} ]]
+	DISKCHECK=($(lsblk | grep -o "^sd\w*\|hd\w*\|^vd\w*"))
+	if [[ ! ${DISKCHECK[@]} =~ ${DISK} ]]; then
 		clear
 		echo -e "Please try again!\n"
 		sleep 0.8
 		makepart
 	fi
 
-	cfdisk /dev/"${DEVICE,,}"
+	fdisk /dev/"${DISK}"
 }
 
 
 # filesystem for new partions
 makefs () {
 
+	DEVICE=/dev/"${DISK}"
+
+	clear
 	echo -e "Choose a filesystem for partitions: (ext4, xfs, btrfs)\n"
 	read -r -p "> " FSTYPE
 
@@ -141,7 +144,7 @@ selectpkgs () {
 	# sanitize options
 	OPTIONS=$(echo "$REPLY" | awk '$1=$1' FS= OFS=" ")
 	if [[ -f ${SOURCE}/packages ]]; then
-		source packages 0 $OPTIONS
+		source packages 0 "$OPTIONS"
 	else
 		echo "ERROR: Source 'packages' not found."
 	fi
@@ -155,6 +158,13 @@ cpconfigs () {
 	if [[ -d ${SOURCE}/etc ]]; then
 		echo -e "\nCopying config files to /etc ..."
 		cp -r etc/. /mnt/etc
+		status
+	fi
+
+	# copy to /etc/skel
+	if [[ -d ${SOURCE}/skel ]]; then
+		echo -e "\nCopying config files to /etc/skel ..."
+		cp -r skel/. /mnt/etc/skel
 		status
 	fi
 
@@ -202,10 +212,7 @@ makefstab () {
 
 	FSTAB=/mnt/etc/fstab
 
-	# generate fstab
-	genfstab -U /mnt >> "$FSTAB"
-
-	if [[ $? = 0 ]]; then
+	if genfstab -U /mnt >> "$FSTAB"; then
 
 		sed -i \
 		-e '/boot/ s=relatime=noatime=' \
@@ -216,10 +223,10 @@ makefstab () {
 		"$FSTAB"
 
 		{
-		echo "/tmp	/var/tmp	none	nodev,nosuid,noexec,bind  0 0"
-		echo "tmpfs	/tmp		tmpfs	nodev,nosuid,noexec  0 0"
+		echo "/tmp	/var/tmp	none	nodev,nosuid,noexec,bind	0 0"
+		echo "tmpfs	/tmp		tmpfs	nodev,nosuid,noexec	0 0"
 		echo "tmpfs	/dev/shm	tmpfs	nodev,nosuid,noexec	0 0"
-		echo "proc	/proc		proc nodev,nosuid,noexec  0 0"
+		echo "proc	/proc		proc 	nodev,nosuid,noexec	0 0"
 		} >> "$FSTAB"
 	fi
 
@@ -325,23 +332,8 @@ sethome () {
 
 	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects}
 
-	# copy dotfiles
-	if [[ -d ${SOURCE}/skel ]]; then
-		echo -e "\nCopying dotfiles to /home/${NAME} ..."
-		if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
-			cp -r skel /mnt/etc/
-		else
-			(
-			cd "${SOURCE}"/skel;
-			for f in .aliases .profile .bashrc .inputrc .bin; do
-			cp -r "$f" /mnt/etc/skel
-			done
-			)
-		fi
-		status
-	fi
-
 	echo -e "\nSetting permissions for /home/* ..."
+
 	$CHROOT "chown -R ${NAME}:${NAME} /home/${NAME}"
 	$CHROOT "chmod -R 750 /home/${NAME}"
 	status
@@ -349,60 +341,32 @@ sethome () {
 
 
 # configure desktop theme
-themes () {
+decorate () {
 
-  if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
+	if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 
-    if [[ -d ${SOURCE}/usr/share ]]; then
-      cp -r usr/share/ /mnt/usr
+		echo -e "\nSetting desktop icon theme ..."
 
-      echo -e "\nInstalling desktop themes ..."
-      for f in "${SOURCE}"/home/.themes/*.tar.xz; do
-        tar xf "$f" -C /mnt/usr/share/themes
-      done
-      status
-
-      echo -e "\nInstalling icon themes ..."
-      for f in "${SOURCE}"/home/.icons/*.tar.xz; do
-        tar xf "$f" -C /mnt/usr/share/icons
-      done
-      status
-    fi
-  fi
-}
-
-
-themes2 () {
-
-  if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
-
-    if [[ -d ${SOURCE}/usr/share ]]; then
-      cp -r ./usr/share/ /mnt/usr
-
-      echo -e "\nInstalling desktop themes ..."
-      for f in "${SOURCE}"/usr/share/themes/*.tar.xz; do
-        tar xf "$f" -C /mnt/usr/share/themes
-      done
-      status
-
-      echo -e "\nInstalling icon themes ..."
-      for f in "${SOURCE}"/usr/share/icons/*.tar.xz; do
-        tar xf "$f" -C /mnt/usr/share/icons
-      done
-      status
-    fi
-  fi
+		pacstrap /mnt wget papirus-icon-theme
+		$CHROOT "curl -s https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh | bash"
+		$CHROOT "papirus-folders -C bluegrey --theme Papirus-Dark"
+		status
+	fi
 }
 
 
 # installation complete
 goodbye () {
 
-	echo -e "\nInstallation complete. Any key to reboot.."
+	echo
+	echo -e "\nInstallation complete."
+    echo -e "\nAny key to reboot.."
 	read -n1 -rs
 
+	# unmount partions from /mnt
 	umount -R /mnt
 
+	# clean up installation files
 	rm -rf -- "$(pwd)"
 
 	reboot
