@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+
+RUN="1 minute"
+END=$(date -ud "$RUN" +%s)
+
+
+# if nordvpn not installed, exit script
+if ! [ -x "$(command -v nordvpn)" ]; then
+    echo "ERROR : NordVPN is not installed." >&2
+    exit 0
+fi
+
+
+# check connection, enable VPN if good
+while [[ $(date -u +%s) -le $END ]]
+  do
+    if ping -c 2 1.1.1.1 &> /dev/null
+    then
+      nordvpn c
+      break
+    else
+      continue
+    fi
+  done
+
