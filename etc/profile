@@ -1,4 +1,4 @@
-# /etc/profile
+# Arch Xfce Hardened - /etc/profile
 
 # Set our umask
 umask 022

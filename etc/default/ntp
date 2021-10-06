@@ -1,4 +1,4 @@
-# Arch Hardened - /etc/default/ntp
+# Arch Xfce Hardened - /etc/default/ntp
 
 # -4 Force DNS resolution of host names to the IPv4
 # -g Allow hwclock to be set to any value without restriction

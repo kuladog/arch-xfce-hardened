@@ -1,4 +1,4 @@
-# Arch Hardened - /etc/default/grub
+# Arch Xfce Hardened - /etc/default/grub
 
 GRUB_DEFAULT=0
 GRUB_TIMEOUT=0

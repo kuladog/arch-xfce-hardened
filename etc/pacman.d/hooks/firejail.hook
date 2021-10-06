@@ -1,4 +1,4 @@
-# Arch Hardened - /etc/pacman.d/hooks
+# Arch Xfce Hardened - /etc/pacman.d/hooks
 
 [Trigger]
 Type = Path

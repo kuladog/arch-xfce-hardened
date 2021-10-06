@@ -1,4 +1,4 @@
-//   Arch Xfce Hardened ~/.mozilla/firefox/*.default-release/
+//  Arch Xfce Hardened ~/.mozilla/firefox/*.default-release/
 //
 //
 //   Removed extensions from /usr/lib64/firefox/browser/features
