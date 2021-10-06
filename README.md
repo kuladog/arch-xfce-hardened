@@ -4,7 +4,7 @@
 
 I made this [Arch Linux](https://archlinux.org/) installer for my own personal use, but it could work for anyone who wants a lightweight hardened system that works and looks good right out of the box.
 
-To change which apps are installed you can add or remove them from the [packages](https://github.com/kuladog/arch-xfce-hardened/blob/main/packages) script. Dotfiles and configuration files can be edited, added, or removed from the `home` and `etc` directories. And, of course, read through the [install script](https://github.com/kuladog/arch-xfce-hardened/blob/main/install.sh) to make sure it's gonna do what you want.
+To change which apps are installed you can add or remove them from the [packages](https://github.com/kuladog/arch-xfce-hardened/blob/main/packages) script. Dotfiles and configuration files can be edited, added, or removed from the `etc`, `skel`, and `usr` directories. And, of course, read through the [install script](https://github.com/kuladog/arch-xfce-hardened/blob/main/install.sh) to make sure it's gonna do what you want.
 
 ![alt text](screen.png "Arch Xfce")
 
