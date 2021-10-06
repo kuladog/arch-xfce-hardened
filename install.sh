@@ -360,7 +360,7 @@ goodbye () {
 
 	echo
 	echo -e "\nInstallation complete."
-    echo -e "\nAny key to reboot.."
+	echo -e "\nAny key to reboot.."
 	read -n1 -rs
 
 	# unmount partions from /mnt
