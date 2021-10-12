@@ -219,7 +219,8 @@ makefstab () {
 		-e '/\/[[:space:]]/ s=relatime=noatime=' \
 		-e '/home/ s=relatime=noatime,nodev,nosuid=' \
 		-e '/var/ s=relatime=noatime,nodev,nosuid=' \
-		-e 's/\S\+/0/5' -e 's/\S\+/0/6' \
+		-e 's/\S\+/0/5' \
+		-e 's/\S\+/0/6' \
 		"$FSTAB"
 
 		{
@@ -345,7 +346,7 @@ decorate () {
 
 	if $CHROOT "pacman -Qi xfdesktop" &> /dev/null; then
 
-		echo -e "\nSetting desktop icon theme ..."
+		echo -e "\nSetting desktop and icon theme ..."
 
 		pacstrap /mnt wget papirus-icon-theme
 		$CHROOT "curl -s https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh | bash"
