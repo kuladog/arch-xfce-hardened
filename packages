@@ -120,6 +120,7 @@ install () {
       xfce4-notifyd \
       xfce4-panel \
       xfce4-power-manager \
+      xfce4-pulseaudio-plugin \
       xfce4-screenshooter \
       xfce4-session \
       xfce4-settings \
@@ -164,6 +165,8 @@ install () {
       networkmanager \
       nm-connection-editor \
       openssh \
+      pavucontrol \
+      pulseaudio \
       reflector \
       wireguard-tools
 

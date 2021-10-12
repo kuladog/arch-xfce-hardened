@@ -19,6 +19,7 @@
         <value type="int" value="6"/>
         <value type="int" value="2"/>
         <value type="int" value="5"/>
+        <value type="int" value="9"/>
         <value type="int" value="13"/>
         <value type="int" value="10"/>
         <value type="int" value="7"/>
@@ -33,8 +34,9 @@
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-3" type="string" value="applicationsmenu">
-      <property name="button-title" type="string" value="  Arch-X"/>
+      <property name="button-title" type="string" value=" Arch-X"/>
       <property name="button-icon" type="string" value="archlinux-logo"/>
+      <property name="show-tooltips" type="bool" value="false"/>
     </property>
     <property name="plugin-6" type="string" value="separator">
       <property name="style" type="uint" value="0"/>
@@ -73,6 +75,9 @@
       <property name="items" type="array">
         <value type="string" value="16333948133.desktop"/>
       </property>
+    </property>
+    <property name="plugin-9" type="string" value="pulseaudio">
+      <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
     </property>
   </property>
 </channel>
