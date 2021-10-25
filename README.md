@@ -1,8 +1,8 @@
-## Arch Xfce Hardened
+## Arch Xfce Hardened - (Arch-X)
 
 ### About
 
-I made this [Arch Linux](https://archlinux.org/) installer for my own personal use, but it could work for anyone who wants a lightweight hardened system that works and looks good right out of the box.
+I made this [Arch Linux](https://archlinux.org/) installer for my own personal use, but it could work for anyone who wants a lightweight hardened system that works and looks good out of the box.
 
 To change which apps are installed you can add or remove them from the [packages](https://github.com/kuladog/arch-xfce-hardened/blob/main/packages) script. Dotfiles and configuration files can be edited, added, or removed from the `etc`, `skel`, and `usr` directories. And, of course, read through the [install script](https://github.com/kuladog/arch-xfce-hardened/blob/main/install.sh) to make sure it's gonna do what you want.
 
@@ -10,9 +10,9 @@ To change which apps are installed you can add or remove them from the [packages
 
 ### Usage
 
-From the main [Arch Linux](https://archlinux.org/) installer, clone this repo with one of the following options and run the install script.
+From the [Archiso](https://archlinux.org/download/) live environment, clone this repo with one of the following options and run the install script.
  
-1. Using curl: (included in arch-iso)
+1. Using curl: (included in archiso)
 ```sh
 curl -LO https://github.com/kuladog/arch-xfce-hardened/archive/main.zip
 
