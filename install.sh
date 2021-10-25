@@ -37,8 +37,26 @@ status () {
 # greeter prompt to run installer
 greeter () {
 
+	cat <<- EOF
+
+
+	         AA                                         xx     xx
+	       AA  A                        hh               xx   xx
+	      AA   AA                       hh                xx xx
+	     AA     AA     rr rrr    cccc   hhhhh              xx
+	    AA  AAA  AA    rrrr    cc       hh   hh   ====    xx xx
+	   AA         AA   rr      cc       hh   hh          xx   xx
+	  AA           AA  rr        cccc   hh   hh         xx     xx
+
+
+	           ARCH LINUX - XFCE - HARDENED - by Kuladog
+
+
+
+	EOF
+
 	echo -e "\nYou're about to install Arch Linux (Hardened)\n"
-	read -r -p" Continue? [Y/n] "; clear
+	read -r -p"Continue? [Y/n] "; clear
 
 	case "${REPLY,,}" in
 	 y)
@@ -70,7 +88,7 @@ makepart () {
 	read -r -p "> " DISK; DISK=${DISK,,}
 	clear
 
-	DISKCHECK=($(lsblk | grep -o "^sd\w*\|hd\w*\|^vd\w*"))
+	DISKCHECK=($(lsblk | grep -o "^sd\w*\|^nvme\w*|hd\w*\|^vd\w*"))
 	if [[ ! ${DISKCHECK[@]} =~ ${DISK} ]]; then
 		clear
 		echo -e "Please try again!\n"
