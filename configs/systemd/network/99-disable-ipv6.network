@@ -1,0 +1,6 @@
+# /etc/systemd/network/99-disable-ipv6.network
+
+[Network]
+DHCP=no
+IP6AddressPolicy=disable
+

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+#  Command: git-aur
+#  Automates 'git aur' package installation
+#  https://github.com/kuladog
+
+
+! [[ -d ~/.aur ]] && mkdir -p ~/.aur
+
+(
+  cd ~/.aur
+  git clone "$1"
+  cd  "$(\ls -1dt ./*/ | head -n 1)"
+  makepkg -sic
+)

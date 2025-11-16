@@ -1,0 +1,7 @@
+# /etc/dconf/profile/user
+
+service-db:keyfile/user
+user-db:user
+system-db:local
+system-db:site
+system-db:distro

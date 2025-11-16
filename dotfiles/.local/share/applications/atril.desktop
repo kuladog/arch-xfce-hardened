@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=Atril PDF Viewer
+GenericName=Document Viewer
+Comment=View multi-page documents
+TryExec=atril
+Exec=atril %U
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=atril
+Categories=GTK;Utility;Viewer;
+Keywords=document;viewer;pdf;dvi;ps;xps;tiff;pixbuf;djvu;comics;
+MimeType=application/pdf;application/x-bzpdf;application/x-gzpdf;application/x-xzpdf;application/postscript;application/x-bzpostscript;application/x-gzpostscript;image/x-eps;image/x-bzeps;image/x-gzeps;application/x-dvi;application/x-bzdvi;application/x-gzdvi;image/vnd.djvu;image/vnd.djvu+multipage;image/tiff;application/x-cbr;application/x-cbz;application/x-cb7;application/x-cbt;application/vnd.comicbook+zip;application/vnd-comicbook.rar;image/*;application/oxps;application/vnd.ms-xpsdocument;application/epub+zip;

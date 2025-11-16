@@ -1,0 +1,18 @@
+[Desktop Entry]
+Name=Xed Text Editor
+Comment=Edit text files
+Exec=xed %U
+Terminal=false
+Type=Application
+StartupNotify=true
+MimeType=text/plain;application/x-zerosize;
+Icon=text-x-zig
+Categories=GTK;Utility;TextEditor;
+Keywords=xed;text;editor;tabs;highlighting;code;multiple;files;pluggable;notepad;
+X-MATE-DocPath=xed/xed.xml
+Actions=new-window;
+Path=
+
+[Desktop Action new-window]
+Name=New Window
+Exec=xed --new-window %U

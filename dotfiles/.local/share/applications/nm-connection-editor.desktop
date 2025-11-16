@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Network Connections
+Comment=Manage your network connections
+Icon=preferences-system-network
+Exec=nm-connection-editor
+Terminal=false
+Type=Application
+NoDisplay=false
+Categories=Settings;

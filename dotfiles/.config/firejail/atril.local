@@ -1,0 +1,11 @@
+# ~/.config/firejail/atril.local
+
+noblacklist ${HOME}/
+
+apparmor
+caps.drop all
+machine-id
+net none
+protocol unix
+
+private-tmp

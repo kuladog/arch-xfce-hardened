@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+#  Command: search
+#  Easily search local directories using 'find' utility.
+#  https://github.com/kuladog
+
+
+# If directory not specified, use $pwd
+if [ -z "$2" ]; then
+	directory="$(pwd)"
+	filename="$1"
+else
+	directory="$1"
+	filename="$2"
+fi
+
+# Echo usage if filename empty
+if [ -z "$filename" ]; then
+	echo " USAGE: $(basename $0) <directory> <filename>"
+	exit 1
+fi
+
+# Use 'find' to search file
+find "$directory" -type f -iname "$filename"

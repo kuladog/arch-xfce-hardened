@@ -1,0 +1,17 @@
+# ~/.config/firejail/firefox.local
+
+private-bin bash,dbus-launch,dbus-send,env,firefox,sh,which
+
+# noexec ${HOME} <--- breaks DRM binaries
+ignore noexec ${HOME}
+
+?BROWSER_DISABLE_U2F: nou2f
+
+apparmor
+caps.drop all
+disable-mnt
+machine-id
+netfilter
+nogroups
+nonewprivs
+noroot

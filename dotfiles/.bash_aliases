@@ -1,0 +1,20 @@
+# ~/.bash_aliases
+
+alias sano='sudo -B nano'
+alias sedit='sudo xed'
+alias upd='sudo pacman -Syu'
+alias get='sudo pacman -S'
+alias rem='sudo pacman -Rns'
+alias vpnc='nordvpn c'
+alias vpnd='nordvpn d'
+alias vpns='nordvpn status'
+alias scurl='curl --tlsv1.3 --proto =https -O'
+alias wrm='wipe -vfz'
+alias difs='diff -r --side-by-side --color'
+alias dl='cd ~/Downloads'
+alias pro='cd ~/Projects'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ll='ls -la'
+
