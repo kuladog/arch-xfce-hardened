@@ -9,6 +9,12 @@ PATH="${PATH:+${PATH}:}${HOME}/.local/bin"
 # Prompt color and foramtting
 PS1="\[\e[0;34m\][\u@\h \W]\$ \[\e[m\]"
 
+# Enable xterm color support
+if [ -n "$TERM" ] && [[ "$TERM" == xterm* ]]; then
+    export CLICOLOR=1
+    export LSCOLORS=GxBxhxDxDxDxDx
+fi
+
 # Enable color output lists
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -38,4 +44,3 @@ umask 0077
 # Limit access to bash history and config
 chmod 600 ~/.bashrc
 chmod 600 ~/.bash_history
-

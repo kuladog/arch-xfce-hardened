@@ -4,6 +4,6 @@ Type=Application
 Name=Updater
 Comment=Sytem updates
 Exec=sudo pacman -Syu -y
-Icon=system-upgrade
+Icon=mintupdate-checking
 Terminal=true
 StartupNotify=false

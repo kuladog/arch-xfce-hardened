@@ -84,7 +84,7 @@ status() {
 user_confirm() {
         echo -e "\n\n  You're about to install Arch Linux (Hardened). Is this OK? [Y/n] "
         read -rs confirm
-		confirm=${confirm:-Y}
+		confirm=${confirm:-n}
 
 		if [[ ! $confirm =~ ^[Yy]$ ]]; then
 		  echo -e "\n Setup aborted."
@@ -132,24 +132,28 @@ user_prompt() {
 #================================================
 
 select_disk() {
+		get_disk() {
+			flush; read -rp " Disk /dev/" DISK
+			DISK=${DISK,,}
+		}
+
 		echo -e "\n\n Available drive(s) to install on: \n"
 		fdisk -l | grep -E 'Label|Size|nvme|sd|hd|vd'
 
 		echo -e "\n Enter the device name: (eg. nmve0n1, sdc, vda)"
-		flush; read -rp " Disk /dev/" DISK
+		get_disk
 
 		local available=($(lsblk | grep -E "^[svhdnvme]+[0-9]?"))
-		while [[ ! ${available[@]} =~ ${DISK,,} ]]; do
+		while [[ ! ${available[@]} =~ ${DISK} ]]; do
 				echo -e "\n Disk '${DISK}' not available, try again."
-				flush; read -rp "Disk /dev/" DISK
+				get_disk
 			done
-
-		DEVICE=/dev/"${DISK,,}"
 	}
 
 partition_disk() {
-		echo -e "\n Creating new partitions ...\n"
+		DEVICE=/dev/"${DISK}"
 
+		echo -e "\n Creating new partitions ...\n"
 		if fdisk -l "${DEVICE}" | grep -q gpt; then
 			sfdisk "${DEVICE}" >/dev/null <<EOF
 label: gpt
@@ -179,6 +183,7 @@ format_disk() {
 
         if [[ $fstype =~ ^(ext[234]|btrfs|xfs)$ ]]; then
 			echo -e "\n Formating new partitions ..."
+
             if fdisk -l "${DEVICE}" | grep -q gpt; then
                 mkfs.fat -F32 "${DEVICE}1" >/dev/null
             else

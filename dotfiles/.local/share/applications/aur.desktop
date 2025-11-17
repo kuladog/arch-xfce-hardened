@@ -7,7 +7,6 @@ Comment=Search online AUR repository
 Keywords=Internet;Browser;Web;
 Exec=firefox https://aur.archlinux.org/
 Icon=distributor-logo-archlinux
-Path=
 Terminal=false
 StartupNotify=false
 Categories=Utility;Internet;

@@ -128,6 +128,7 @@
             <Or>
                 <Filename>xfce4-session-logout.desktop</Filename>
                 <Filename>avahi-discover.desktop</Filename>
+                <Filename>uxterm.desktop</Filename>
             </Or>
         </Exclude>
     </Menu>
