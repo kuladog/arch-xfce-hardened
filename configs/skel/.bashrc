@@ -7,12 +7,18 @@
 PATH="${PATH:+${PATH}:}${HOME}/.local/bin"
 
 # Prompt color and foramtting
-PS1="\[\e[0;34m\][\u@\h \W]\$ \[\e[m\]"
+PS1="\[\e[0;38;5;81m\]\u@\h \[\e[38;5;121m\]\W\[\e[m\]\$ "
+
+# Load xresources for xterm
+if [[ $DISPLAY ]]; then
+    xrdb -merge ~/.Xresources
+fi
 
 # Enable color output lists
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
+alias egrep='grep -E --color=auto'
+alias fgrep='grep -F --color=auto'
 
 # Write history immediately after each cmd
 PROMPT_COMMAND="history -a; history -n"
@@ -38,4 +44,3 @@ umask 0077
 # Limit access to bash history and config
 chmod 600 ~/.bashrc
 chmod 600 ~/.bash_history
-
