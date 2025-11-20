@@ -47,7 +47,6 @@ package_install() {
 			chrony \
 			efibootmgr \
 			firewalld \
-			git \
 			grub \
 			gvfs \
 			linux-firmware \
@@ -108,6 +107,7 @@ package_install() {
 			firefox-ublock-origin \
 			firejail \
 			geany \
+			git \
 			github-cli \
 			gnome-disk-utility \
 			nm-connection-editor \
