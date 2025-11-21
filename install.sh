@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-
+#
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
-#  Revised: 2025-11-12
+#  Revised: 2025-11-21
 #
 
 set -euo pipefail
@@ -14,9 +14,7 @@ DIR=$(dirname "${BASH_SOURCE[0]}")
 exec > >(tee /var/log/arch-xfce-setup.log) 2>/dev/tty
 
 banner() {
-	clear
-
-	cat <<- EOF
+	clear; cat <<- EOF
 
 
 
@@ -41,6 +39,10 @@ chroot() { arch-chroot /mnt bash -c "$@"; }
 flush() { tput cr; tput el; }
 
 status() { echo -e "\e[0;32m Success!\e[0m"; }
+
+#================================================
+#    USER PROMPTS
+#================================================
 
 user_confirm() {
 	flush; read -rp $'\n\n You are about to install Arch Linux (Hardened). Proceed? [Y/n]: '
@@ -130,7 +132,7 @@ disk_format() {
 }
 
 disk_mount() {
-    echo -e "\nMounting partitions..."
+    echo -e "\nMounting partitions ..."
 
     mkdir -p /mnt
 
@@ -164,7 +166,7 @@ install_system() {
 install_theme() {
 	pacstrap -K /mnt wget papirus-icon-theme
 
-	echo -e "\n Setting desktop theme ..."
+	echo -e "\nSetting desktop theme ..."
 
 	chroot "curl -s https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh | bash"
 	chroot "papirus-folders -C bluegrey --theme Papirus-Dark"
@@ -235,7 +237,7 @@ sys_fstab() {
 }
 
 sys_grub() {
-    echo -e "\nInstalling GRUB..."
+    echo -e "\nInstalling GRUB ..."
 
     if sfdisk -l "$DEVICE" | grep -q gpt; then
         chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB"
@@ -270,7 +272,7 @@ svc_firewall() {
 		)
 
 	if chroot "command -v firewalld" &>/dev/null; then
-		echo -e "\n Configuring Firewalld ...\n"
+		echo -e "\nConfiguring Firewalld ...\n"
 
 		chroot "systemctl start firewalld"
 
@@ -317,7 +319,7 @@ user_dotfiles() {
 }
 
 user_permissions() {
-	echo -e "\nFixing permissions..."
+	echo -e "\nFixing permissions ..."
 
 	chroot "chown -R '$NAME:$NAME' /home/$NAME"
 	chroot "chmod -R 750 /home/$NAME"
@@ -339,7 +341,7 @@ user_no_recents() {
 #================================================
 
 finish() {
-	echo -e "\nSetup complete! Press any key to reboot..."
+	echo -e "\nSetup complete! Press any key to reboot."
 	read -n 1 -rs
 
 	rm -rf ../{arch-xfce*,*main.zip}
