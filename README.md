@@ -16,8 +16,8 @@ to make sure it's gonna do what you want.
 
 ### Usage
 
-From the [Archiso](https://archlinux.org/download/) live environment, clone this repo
-with one of the following options and run the install script.
+From the [Archiso](https://archlinux.org/download/) live environment, just download the
+repo and run the install script.
 
 1. Using curl: (included in archiso)
 ```sh
@@ -30,21 +30,8 @@ cd arch-xfce-hardened-main
 bash install.sh
 ```
 
-2. Using git: (need to install)
-```sh
-pacman -Syyu
-
-pacman install git
-
-git clone https://github.com/kuladog/arch-xfce-hardened.git
-
-cd arch-xfce-hardened
-
-bash install.sh
-```
-
 ### Disclaimer
 
 This was just a fun project to get some bash time in... and kill off some pandemic
-boredom. As a general use installer it has limitations, but it does what it's supposed
+boredom. As a general use installer it has limitations, but does what it's supposed
 to do—for me—perfectly. :smiley:

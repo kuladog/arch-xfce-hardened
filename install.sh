@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
@@ -122,10 +122,10 @@ disk_format() {
 
 	echo -e "\nFormating partitions ..."
     if sfdisk -l "$DEVICE" | grep -q gpt; then
-        mkfs.fat -F32 -f "${DEVICE}1" >/dev/null
-        mkfs."$fstype" -f "${DEVICE}2" >/dev/null
+        mkfs.fat -F32 "${DEVICE}1" >/dev/null
+        mkfs."$fstype" "${DEVICE}2" >/dev/null
     else
-        mkfs."$fstype" -f "${DEVICE}1" >/dev/null
+        mkfs."$fstype" "${DEVICE}1" >/dev/null
     fi
 
 	status
