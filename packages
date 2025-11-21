@@ -1,125 +1,61 @@
 # source file: packages
 
-GROUP=()
-
-package_groups() {
-	while (( $# )); do
-		case "$1" in
-			0 )	GROUP+=("Base")
-				;;
-			1 )	GROUP+=("${PACKAGES[0]}")
-				;;
-			2 )	GROUP+=("${PACKAGES[@]:0:2}")
-				;;
-			3 )	GROUP+=("${PACKAGES[@]:0:3}")
-				;;
-			4 )	GROUP+=("${PACKAGES[@]:0:3}")
-				;;
-			5 )	GROUP+=()
-				;;
-			* ) ;;
-		esac
-		shift
-	done
-
-	package_confirm
-}
-
-package_confirm() {
-	echo -e "\n Package groups to be installed:\n"
-
-	printf "%s  \n" "${GROUP[@]}" | awk '!a[$0]++' | xargs
-	sleep 2
-	package_install
-}
-
-package_install() {
-	for pkg in "${GROUP[@]}"; do
-		declare -g "$pkg"=true
-	done
-
-	if [[ $Base = true ]]; then
-		echo -e "\n Installing Base System ..."
-		pacstrap -K /mnt \
-			apparmor \
-			base \
-			base-devel \
-			chrony \
-			efibootmgr \
-			firewalld \
-			grub \
-			gvfs \
-			linux-firmware \
-			linux-hardened \
-			nano \
-			networkmanager \
-			pulseaudio \
-			sudo \
-			wget
-
-		if [[ $(systemd-detect-virt) != none ]]; then
-			pacstrap -K /mnt \
-				qemu-guest-agent \
-				spice-vdagent
-		fi
-	fi
-
-	if [[ $Xorg = true || $All = true ]]; then
-		echo -e "\n Installing X Server ..."
-		pacstrap -K /mnt \
-			xorg-server \
-			xorg-xinit \
-			xterm
-	fi
-
-	if [[ $Xfce = true || $All = true ]]; then
-		echo -e "\n Installing Xfce Desktop ..."
-		pacstrap -K /mnt \
-			exo \
-			garcon \
-			libxfce4ui \
-			libxfce4util \
-			thunar \
-			thunar-archive-plugin \
-			tumbler \
-			xfce4-notifyd \
-			xfce4-panel \
-			xfce4-power-manager \
-			xfce4-pulseaudio-plugin \
-			xfce4-screenshooter \
-			xfce4-session \
-			xfce4-settings \
-			xfce4-taskmanager \
-			xfce4-terminal \
-			xfconf \
-			xfdesktop \
-			xfwm4 \
-			lxdm
-	fi
-
-	if [[ $Apps = true || $All = true ]]; then
-		echo -e "\n Installing Desktop Applications ..."
-		pacstrap -K /mnt \
-			7zip \
-			atril \
-			ffmpeg \
-			firefox \
-			firefox-ublock-origin \
-			firejail \
-			geany \
-			git \
-			github-cli \
-			gnome-disk-utility \
-			nm-connection-editor \
-			pavucontrol \
-			transmission-gtk \
-			shellcheck \
-			veracrypt \
-			viewnior \
-			vlc \
-			xarchiver \
-			xed
-	fi
-}
-
-package_groups "$@"
+INSTALL=(
+	base
+	base-devel
+	linux-hardened
+	linux-firmware
+	grub
+	efibootmgr
+	chrony
+	firewalld
+	gvfs
+	apparmor
+	nano
+	networkmanager
+	pulseaudio
+	sudo
+	exo
+	qemu-guest-agent
+	spice-vdagent
+	xorg-server
+	xorg-xinit
+	garcon
+	libxfce4ui
+	libxfce4util
+	lxdm
+	thunar
+	thunar-archive-plugin
+	tumbler
+	xfce4-notifyd
+	xfce4-panel
+	xfce4-power-manager
+	xfce4-pulseaudio-plugin
+	xfce4-screenshooter
+	xfce4-session
+	xfce4-settings
+	xfce4-taskmanager
+	xfce4-terminal
+	xfconf
+	xfdesktop
+	xfwm4
+	7zip
+	atril
+	ffmpeg
+	firefox
+	firefox-ublock-origin
+	firejail
+	geany
+	git
+	github-cli
+	gnome-disk-utility
+	nm-connection-editor
+	pavucontrol
+	transmission-gtk
+	shellcheck
+	veracrypt
+	viewnior
+	vlc
+	xarchiver
+	xed
+)

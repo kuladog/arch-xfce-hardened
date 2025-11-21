@@ -9,11 +9,6 @@ PATH="${PATH:+${PATH}:}${HOME}/.local/bin"
 # Prompt color and foramtting
 PS1="\[\e[0;38;5;81m\]\u@\h \[\e[38;5;121m\]\W\[\e[m\]\$ "
 
-# Load xresources for xterm
-if [[ $DISPLAY ]]; then
-    xrdb -merge ~/.Xresources
-fi
-
 # Enable color output lists
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
