@@ -17,7 +17,7 @@ to make sure it's gonna do what you want.
 ### Usage
 
 From the [Archiso](https://archlinux.org/download/) live environment, just download the
-repo and run the install script.
+repo and run the script.
 
 1. Using curl: (included in archiso)
 ```sh
@@ -33,5 +33,4 @@ bash install.sh
 ### Disclaimer
 
 This was just a fun project to get some bash time in... and kill off some pandemic
-boredom. As a general use installer it has limitations, but does what it's supposed
-to do—for me—perfectly. :smiley:
+boredom. It has limitations, but does what it's supposed to do—for me—perfectly. :smiley:
