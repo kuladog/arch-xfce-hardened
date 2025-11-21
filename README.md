@@ -30,6 +30,19 @@ cd arch-xfce-hardened-main
 bash install.sh
 ```
 
+2. Using git: (need to install)
+```sh
+pacman -Syyu
+
+pacman install git
+
+git clone https://github.com/kuladog/arch-xfce-hardened.git
+
+cd arch-xfce-hardened
+
+bash install.sh
+```
+
 ### Disclaimer
 
 This was just a fun project to get some bash time in... and kill off some pandemic
