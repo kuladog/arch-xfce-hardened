@@ -4,6 +4,6 @@ Type=Application
 Name=Updater
 Comment=Sytem updates
 Exec=sudo pacman -Syu --noconfirm
-Icon=mintupdate-checking
+Icon=/usr/share/icons/gnome/48x48/status/security-medium.png
 Terminal=true
 StartupNotify=false
