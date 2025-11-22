@@ -1,6 +1,6 @@
 # ~/.bashrc
 
-# Exit if not an interactive shell
+# Don't run if non-interactive
 [[ $- != *i* ]] && return
 
 # User path if directory exists
@@ -26,10 +26,10 @@ export HISTIGNORE="ssh *:passwd *:??:???"
 # Limit access to bash history
 [[ -f "$HOME/.bash_history" ]] && chmod 600 "$HOME/.bash_history"
 
-# Source aliases and functions
+# Load aliases and functions
 [[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
 
-# Colored lists output
+# Colored list output
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias egrep='grep -E --color=auto'
