@@ -22,7 +22,7 @@ banner() {
               AA  A                        hh             xx    xx
              AA   AA                       hh              xx  xx
             AA     AA     rr rrr    cccc   hhhhh             xx
-           AA  AAA  AA    rrr    cc       hh   hh   ===    xxx
+           AA  AAA  AA    rrr     cc       hh   hh   ===    xxx
           AA         AA   rr      cc       hh   hh         xx  xx
          AA           AA  rr        cccc   hh   hh        xx    xx
 
