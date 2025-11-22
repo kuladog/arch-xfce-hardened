@@ -22,7 +22,7 @@ banner() {
               AA  A                        hh             xx    xx
              AA   AA                       hh              xx  xx
             AA     AA     rr rrr    cccc   hhhhh             xx
-           AA  AAA  AA    rrrr    cc       hh   hh   ===    xxx
+           AA  AAA  AA    rrr    cc       hh   hh   ===    xxx
           AA         AA   rr      cc       hh   hh         xx  xx
          AA           AA  rr        cccc   hh   hh        xx    xx
 
@@ -109,7 +109,6 @@ unit: sectors
 ${DEVICE}1 : start=2048, size=+, type=83
 EOF
     fi
-
 	status
 }
 
@@ -126,9 +125,8 @@ disk_format() {
         mkfs.fat -F32 "${DEVICE}1" >/dev/null
         mkfs."$fstype" "${DEVICE}2" >/dev/null
     else
-        mkfs."$fstype" -f "${DEVICE}1" >/dev/null
+        mkfs."$fstype" "${DEVICE}1" >/dev/null
     fi
-
 	status
 }
 
@@ -144,7 +142,6 @@ disk_mount() {
     else
         mount "${DEVICE}1" /mnt
     fi
-
 	status
 }
 
@@ -179,7 +176,6 @@ install_theme() {
 
 	chroot "curl -s https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh | bash"
 	chroot "papirus-folders -C bluegrey --theme Papirus-Dark"
-
 	status
 }
 
@@ -214,7 +210,6 @@ sys_configs() {
 			mkdir -p "$(dirname "$dest")"
 			sed -e "s|<user>|${NAME}|" -e "s|<host>|${HOST}|" "$file" > "$dest"
 		done
-
 		status
 	fi
 
@@ -241,7 +236,6 @@ sys_fstab() {
 		echo "tmpfs /dev/shm    tmpfs   nodev,nosuid,noexec 0 0"
 		} >> "$fstab"
 	fi
-
 	status
 }
 
@@ -255,7 +249,6 @@ sys_grub() {
     fi
 
     chroot "grub-mkconfig -o /boot/grub/grub.cfg"
-
     status
 }
 
@@ -287,7 +280,6 @@ svc_firewall() {
 		for r in "${RULESET[@]}"; do
 			chroot "firewall-offline-cmd $r"
 		done
-
 		status
 	fi
 }
@@ -301,7 +293,6 @@ svc_firejail() {
 		chroot "chown root:firejail /usr/bin/firejail"
 		chroot "chmod 4750 /usr/bin/firejail"
 		chroot "firecfg"
-
 		status
 	fi
 }
@@ -321,7 +312,6 @@ user_dotfiles() {
 			mkdir -p "$(dirname "$dest")"
 			sed -e "s|<user>|${NAME}|" "$file" > "$dest"
 		done
-
 		status
 	fi
 }
@@ -331,7 +321,6 @@ user_permissions() {
 
 	chroot "chown -R $NAME:$NAME /home/$NAME"
 	chroot "chmod -R 750 /home/$NAME"
-
 	status
 }
 
@@ -340,7 +329,6 @@ user_no_recents() {
 
 	truncate -s 0 "$recent"
 	chattr +i "$recent" 2>/dev/null || true
-
 	status
 }
 
