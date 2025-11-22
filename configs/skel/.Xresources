@@ -23,7 +23,7 @@
 *.color14: #a8ad7f
 *.color15: #ffffff
 
-*.faceName:           Noto Sans Regular
+*.faceName:           Monospace
 *.faceSize:           10
 *.geometry:           80x24
 *.saveLines:          1000
