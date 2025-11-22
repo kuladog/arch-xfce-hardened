@@ -172,7 +172,6 @@
     },
     "RequestedLocales": ["en", "en-US"],
     "SanitizeOnShutdown": true,
-    },
     "SearchBar": "unified",
     "SearchEngines": {
       "PreventInstalls": true,
@@ -217,4 +216,5 @@
       "Locked": true
     },
     "UseSystemPrintDialog": true
+  }
 }

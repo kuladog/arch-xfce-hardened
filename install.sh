@@ -34,7 +34,7 @@ banner() {
 EOF
 }
 
-chroot() { arch-chroot /mnt bash -c "$@"; }
+chroot() { arch-chroot /mnt bash -c "$*"; }
 
 flush() { tput cr; tput el; }
 
@@ -46,9 +46,9 @@ status() { echo -e "\e[0;32m Success!\e[0m"; }
 
 user_confirm() {
 	flush; read -rp $'\n\n You are about to install Arch Linux (Hardened). Proceed? [Y/n]: '
-	confirm="${confirm:-y}"
+	confirm="${REPLY:-y}"
 
-	if [[ ! "$confirm" =~ ^[Yy]$ ]]; then
+	if [[ ! $confirm =~ ^[Yy]$ ]]; then
 		echo -e "\nInstall aborted."
 		exit 0
 	fi
@@ -56,20 +56,21 @@ user_confirm() {
 
 set_password() {
 	local login="$1"
+	local p1 p2
 
     while true; do
-		flush; read -rsp "Choose ${login} password: " p1; echo
-		flush; read -rsp "Retype ${login} password: " p2; echo
+		flush; read -rsp "Choose $login password: " p1; echo
+		flush; read -rsp "Retype $login password: " p2; echo
 		[[ $p1 == "$p2" ]] && break
 		echo -e "\nPasswords don't match, try again .."
 	done
 
-	[[ $login = root ]] && ROOTPASS="root:${p1}" || USERPASS="${login}:${p1}"
+	[[ $login = root ]] && ROOTPASS="root:$p1" || USERPASS="$login:$p1"
 }
 
 user_questions() {
-	flush; read -rp $'\nChoose hostname > '; HOST="${HOST:-archx}"
-    flush; read -rp $'\nChoose username > '; NAME="${NAME:-user}"
+	flush; read -rp $'\nChoose hostname > '; HOST="${REPLY:-archx}"
+    flush; read -rp $'\nChoose username > '; NAME="${REPLY:-user}"
 
     echo && set_password root
     echo && set_password "$NAME"
@@ -94,15 +95,15 @@ disk_select() {
 disk_partition() {
     echo -e "\nPartitioning $DEVICE ..."
 
-    if sfdisk -l "${DEVICE}" | grep -q gpt; then
-        sfdisk "${DEVICE}" <<EOF >/dev/null
+    if sfdisk -l "$DEVICE" | grep -q gpt; then
+        sfdisk "$DEVICE" <<EOF >/dev/null
 label: gpt
 unit: sectors
 ${DEVICE}1 : start=2048, size=2099199, type=ef
 ${DEVICE}2 : start=2099200, size=+, type=83
 EOF
     else
-        sfdisk "${DEVICE}" <<EOF >/dev/null
+        sfdisk "$DEVICE" <<EOF >/dev/null
 label: mbr
 unit: sectors
 ${DEVICE}1 : start=2048, size=+, type=83
@@ -116,7 +117,7 @@ disk_format() {
 	while true; do
 		echo -e "\nChoose filesystem (ext4, btrfs, xfs)"
 		flush; read -rp " > " fstype
-        [[ "$fstype" =~ ^(ext[234]|btrfs|xfs)$ ]] && break
+        [[ $fstype =~ ^(ext[234]|btrfs|xfs)$ ]] && break
         echo "Invalid filesystem."
     done
 
@@ -125,7 +126,7 @@ disk_format() {
         mkfs.fat -F32 "${DEVICE}1" >/dev/null
         mkfs."$fstype" "${DEVICE}2" >/dev/null
     else
-        mkfs."$fstype" "${DEVICE}1" >/dev/null
+        mkfs."$fstype" -f "${DEVICE}1" >/dev/null
     fi
 
 	status
@@ -155,11 +156,19 @@ install_system() {
 	echo -e "\nInstalling system packages ..."
 
     if [[ -f ${DIR}/packages ]]; then
-		source "${DIR}"/packages
+		source "${DIR}/packages"
 		pacstrap -K /mnt "${INSTALL[@]}"
 		status
 	else
 		echo -e "\nError: 'packages' file not found."
+	fi
+}
+
+install_vdagent() {
+	if [[ $(systemd-detect-virt) != none ]]; then
+		echo -e "\nInstalling guest agents ..."
+		pacstrap -K /mnt qemu-guest-agent spice-vdagent
+		status
 	fi
 }
 
@@ -184,7 +193,7 @@ sys_accounts() {
 	status
 
 	echo -e "\nSetting root password ..."
-	echo "${ROOTPASS}" | chroot "chpasswd"
+	echo "$ROOTPASS" | chroot "chpasswd"
 	status
 
 	echo -e "\nCreating new user '$NAME' ..."
@@ -192,7 +201,7 @@ sys_accounts() {
 	status
 
 	echo -e "\nSetting ${NAME}'s password ..."
-	echo "${USERPASS}" | chroot "chpasswd"
+	echo "$USERPASS" | chroot "chpasswd"
 	status
 }
 
@@ -215,22 +224,22 @@ sys_configs() {
 sys_fstab() {
 	echo -e "\nConfiguring filesystem table ..."
 
-	local fstable=/mnt/etc/fstab
+	local fstab=/mnt/etc/fstab
 
-	if genfstab -U /mnt >> "$fstable"; then
+	if genfstab -U /mnt >> "$fstab"; then
 		sed -i \
 		-e '/boot/ s=relatime=noatime=' \
 		-e '/\/[[:space:]]/ s=relatime=noatime=' \
 		-e '/home\|var/ s=defaults=noatime,nodev,nosuid=' \
 		-e 's/\S\+/0/5' \
 		-e 's/\S\+/0/6' \
-		"$fstable"
+		"$fstab"
 
 		{
 		echo "tmpfs /tmp        tmpfs   nodev,nosuid,noexec 0 0"
 		echo "tmpfs /var/tmp    tmpfs   nodev,nosuid,noexec 0 0"
 		echo "tmpfs /dev/shm    tmpfs   nodev,nosuid,noexec 0 0"
-		} >> "$fstable"
+		} >> "$fstab"
 	fi
 
 	status
@@ -239,10 +248,10 @@ sys_fstab() {
 sys_grub() {
     echo -e "\nInstalling GRUB ..."
 
-    if sfdisk -l "$DEVICE" | grep -q gpt; then
+    if sfdisk -l $DEVICE | grep -q gpt; then
         chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB"
     else
-        chroot "grub-install --target=i386-pc '$DEVICE'"
+        chroot "grub-install --target=i386-pc $DEVICE"
     fi
 
     chroot "grub-mkconfig -o /boot/grub/grub.cfg"
@@ -264,7 +273,6 @@ svc_enable() {
 }
 
 svc_firewall() {
-
 	RULESET=(
 		--set-default-zone=drop
 		--remove-forward
@@ -321,7 +329,7 @@ user_dotfiles() {
 user_permissions() {
 	echo -e "\nFixing permissions ..."
 
-	chroot "chown -R '$NAME:$NAME' /home/$NAME"
+	chroot "chown -R $NAME:$NAME /home/$NAME"
 	chroot "chmod -R 750 /home/$NAME"
 
 	status
@@ -361,6 +369,7 @@ main() {
 	disk_mount
 
 	install_system
+	install_vdagent
 	install_theme
 
 	sys_accounts

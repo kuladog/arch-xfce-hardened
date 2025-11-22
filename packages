@@ -8,18 +8,17 @@ INSTALL=(
 	grub
 	efibootmgr
 	chrony
-	firewalld
-	gvfs
-	apparmor
-	nano
 	networkmanager
-	pulseaudio
+	firewalld
+	apparmor
 	sudo
-	exo
-	qemu-guest-agent
-	spice-vdagent
+	gvfs
+	pulseaudio
+	nano
+## Xfce + LXDM
 	xorg-server
 	xorg-xinit
+	exo
 	garcon
 	libxfce4ui
 	libxfce4util
@@ -39,6 +38,7 @@ INSTALL=(
 	xfconf
 	xfdesktop
 	xfwm4
+## Additional Apps
 	7zip
 	atril
 	ffmpeg
