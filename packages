@@ -15,7 +15,6 @@ INSTALL=(
 	gvfs
 	pulseaudio
 	nano
-## Xfce + LXDM
 	xorg-server
 	xorg-xinit
 	exo
@@ -38,7 +37,6 @@ INSTALL=(
 	xfconf
 	xfdesktop
 	xfwm4
-## Additional Apps
 	7zip
 	atril
 	ffmpeg
