@@ -2,8 +2,7 @@
 
 #  Command: git-aur
 #  Automates 'git aur' package installation
-#  https://github.com/kuladog
-
+#
 
 ! [[ -d ~/.aur ]] && mkdir -p ~/.aur
 

@@ -2,7 +2,7 @@
 
 alias sano='sudo -B nano'
 alias sedit='sudo xdg-open'
-alias upd='sudo pacman -Syu'
+alias upd='sudo pacman -Syu --noconfirm'
 alias get='sudo pacman -S'
 alias rem='sudo pacman -Rns'
 alias vpnc='nordvpn c'

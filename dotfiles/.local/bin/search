@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
 #  Command: search
-#  Easily search local directories using 'find' utility.
-#  https://github.com/kuladog
-
+#  A quick search helper using 'find' utility
+#
 
 # If directory not specified, use $pwd
 if [ -z "$2" ]; then

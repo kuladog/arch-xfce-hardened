@@ -19,7 +19,7 @@ PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 export HISTSIZE=30
 export HISTFILESIZE=50
 
-# Ignore useless history
+# Ignore password history
 export HISTCONTROL=ignoreboth
 export HISTIGNORE="ssh *:passwd *:??:???"
 
