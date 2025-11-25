@@ -4,9 +4,9 @@
 [[ $- != *i* ]] && return
 
 # User path if directory exists
-[[ -d "$HOME/.local/bin" ]] && PATH="$HOME/.local/bin:$PATH"
+[[ -d ~/.local/bin ]] && PATH="$HOME/.local/bin:$PATH"
 
-# Prompt color and foramtting
+# Prompt color and formatting
 PS1="\[\e[0;38;5;81m\]\u@\h \[\e[38;5;121m\]\W\[\e[m\]\$ "
 
 # Prepend 'cd' when entering path
@@ -24,10 +24,10 @@ export HISTCONTROL=ignoreboth
 export HISTIGNORE="ssh *:passwd *:??:???"
 
 # Limit access to bash history
-[[ -f "$HOME/.bash_history" ]] && chmod 600 "$HOME/.bash_history"
+[[ -f ~/.bash_history ]] && chmod 600 "$HOME/.bash_history"
 
 # Load aliases and functions
-[[ -f "$HOME/.bash_aliases" ]] && source "$HOME/.bash_aliases"
+[[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
 # Colored list output
 alias ls='ls --color=auto'
