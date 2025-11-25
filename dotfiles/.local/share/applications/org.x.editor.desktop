@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=Xed Text Editor
+Name=Xed Editor
 Comment=Edit text files
 Exec=xed %U
 Terminal=false
