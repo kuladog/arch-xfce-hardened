@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
+#
 #  Command: git-push
 #  Automates 'git push' from a local directory
-#
 
 if [[ -z "$1" ]]; then
 	read -rp "What's your commit? " commit

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
+#
 #  Command: search
 #  A quick search helper using 'find' utility
-#
 
 # If directory not specified, use $pwd
 if [ -z "$2" ]; then

@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-
+#
 #  Command: git-aur
 #  Automates 'git aur' package installation
-#
 
 ! [[ -d ~/.aur ]] && mkdir -p ~/.aur
 
