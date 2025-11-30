@@ -7,7 +7,7 @@
 [[ -d ~/.local/bin ]] && PATH="$HOME/.local/bin:$PATH"
 
 # Prompt color and formatting
-PS1="\[\e[0;38;5;81m\]\u@\h \[\e[38;5;121m\]\W\[\e[m\]\$ "
+PS1="\[\e[0;38;5;75m\]\u@\h \[\e[38;5;43m\]\W\[\e[m\]\$ "
 
 # Prepend 'cd' when entering path
 shopt -s autocd
