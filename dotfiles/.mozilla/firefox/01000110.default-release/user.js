@@ -1,8 +1,12 @@
 // ~/.mozilla/firefox/<profile>/user.js
 //
-// Last revised: 2025-10-28
+// Privacy and security settings are handled by policies in /etc/firefox/policies/policies.json
+// This user.js consists mostly of specific browser behaviour and UI configurations, with only a
+// handfull of additional privacy and security tweaks.
 //
-
+// Last revised: 2025-12-01 (FF 145.0.2)
+//
+//
 user_pref("accessibility.typeaheadfind.flashBar", 0);
 user_pref("app.normandy.enabled", false);
 user_pref("app.shield.optoutstudies.enabled", false);
@@ -10,6 +14,7 @@ user_pref("browser.aboutwelcome.enabled", false);
 user_pref("browser.aboutwelcome.screens", "");
 user_pref("browser.bookmarks.defaultLocation", "menu");
 user_pref("browser.bookmarks.restore_default_bookmarks", false);
+user_pref("browser.cache.disk.enable", false);
 user_pref("browser.cache.offline.enable", false);
 user_pref("browser.contentblocking.report.show_mobile_app", false);
 user_pref("browser.download.always_ask_before_handling_new_types", false);
@@ -21,8 +26,6 @@ user_pref("browser.preferences.moreFromMozilla", false);
 user_pref("browser.privatebrowsing.forceMediaMemoryCache", true);
 user_pref("browser.privatebrowsing.resetPBM.enabled", true);
 user_pref("browser.profiles.group.enabled", false);
-user_pref("browser.safebrowsing.downloads.remote.block_potentially_unwanted", false);
-user_pref("browser.safebrowsing.downloads.remote.block_uncommon", false);
 user_pref("browser.safebrowsing.downloads.remote.enabled", false);
 user_pref("browser.safebrowsing.provider.google4.dataSharingURL", "");
 user_pref("browser.sessionstore.privacy_level", 2);
@@ -59,7 +62,6 @@ user_pref("browser.urlbar.suggest.weather", false);
 user_pref("cookiebanners.bannerClicking.enabled", false);
 user_pref("datareporting.policy.dataSubmissionEnabled", false);
 user_pref("datareporting.usage.uploadEnabled", false);
-user_pref("dom.event.clipboardevents.enabled", false);
 user_pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
 user_pref("geo.provider.use_geoclue", false);
 user_pref("geo.provider.use_gpsd", false);
@@ -69,13 +71,16 @@ user_pref("layout.spellcheckDefault", 0);
 user_pref("media.gmp-gmpopenh264.enabled", true);
 user_pref("media.hardwaremediakeys.enabled", false);
 user_pref("media.peerconnection.enabled", false);
+user_pref("network.http.sendRefererHeader", 0);
 user_pref("network.IDN_show_punycode", true);
 user_pref("network.manage-offline-status", false);
 user_pref("places.history.enabled", false);
 user_pref("privacy.annotate_channels.strict_list.enabled", true);
+user_pref("privacy.firstparty.isolate", true);
 user_pref("privacy.purge_trackers.date_in_cookie_database", 0);
 user_pref("privacy.query_stripping.enabled.pbmode", true);
 user_pref("privacy.query_stripping.enabled", true);
+user_pref("security.pki.crlite_mode", 2);
 user_pref("security.sandbox.content.level", 4);
 user_pref("security.tls.version.min", 3);
 user_pref("signon.autofillForms", false);
