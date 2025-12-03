@@ -46,6 +46,8 @@
       <property name="digital-layout" type="uint" value="3"/>
       <property name="digital-time-font" type="string" value="Sans 10"/>
       <property name="digital-time-format" type="string" value="%R"/>
+      <property name="timezone" type="string" value="America/Los_Angeles"/>
+      <property name="tooltip-format" type="string" value="%a. %b %d "/>
     </property>
     <property name="plugin-8" type="string" value="tasklist">
       <property name="sort-order" type="uint" value="3"/>
