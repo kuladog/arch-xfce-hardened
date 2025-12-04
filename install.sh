@@ -337,7 +337,7 @@ user_no_recents() {
 #================================================
 
 finish() {
-	echo -e "\nSetup complete! Press any key to reboot."
+	echo -e "\nSetup complete! Press any key to reboot.."
 	read -n 1 -rs
 
 	rm -rf ../{arch-xfce*,*main.zip}
