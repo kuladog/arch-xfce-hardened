@@ -3,16 +3,8 @@
     "AppAutoUpdate": true,
     "AutofillAddressEnabled": false,
     "AutofillCreditCardEnabled": false,
-    "BlockAboutAddons": false,
-    "BlockAboutConfig": false,
-    "BlockAboutProfiles": true,
-    "BlockAboutSupport": true,
     "Bookmarks": [],
-    "CaptivePortal": false,
-	"CaptivePortal": {
-	  "Enabled": false,
-	  "Locked": true
-	},
+	"CaptivePortal": false,
     "Cookies": {
       "Behavior": "reject-tracker-and-partition-foreign",
       "BehaviorPrivateBrowsing": "reject-tracker-and-partition-foreign",
@@ -228,7 +220,6 @@
       "SkipOnboarding": false,
       "UrlbarInterventions": false,
       "Locked": true
-    },
-    "UseSystemPrintDialog": true
+    }
   }
 }

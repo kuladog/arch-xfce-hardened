@@ -2,7 +2,6 @@
 
 profile dhclient /sbin/dhclient {
   network inet udp,
-  network inet6 udp,  # optional if you want to test IPv6 disable
   capability net_bind_service,
   capability setgid,
   capability setuid,
