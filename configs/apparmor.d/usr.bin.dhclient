@@ -1,0 +1,16 @@
+#include <tunables/global>
+
+profile dhclient /sbin/dhclient {
+  network inet udp,
+  network inet6 udp,  # optional if you want to test IPv6 disable
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+
+  # Allow DHCP config read/write
+  /etc/dhcp/** r,
+  /var/lib/dhcp/** rw,
+
+  # Deny everything else
+  deny /**,
+}

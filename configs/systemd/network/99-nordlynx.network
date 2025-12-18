@@ -1,0 +1,11 @@
+# /etc/systemd/network/99-nordlynx.network
+
+# Prevent NordLynx DNS injection
+
+[Match]
+Name=nordlynx
+
+[Network]
+DNS=
+Domains=
+DNSDefaultRoute=no

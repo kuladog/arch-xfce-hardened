@@ -3,7 +3,7 @@
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
-#  Revised: 2025-11-21
+#  Revised: 2025-12-15
 #
 
 set -euo pipefail
@@ -36,16 +36,16 @@ EOF
 
 chroot() { arch-chroot /mnt bash -c "$*"; }
 
-flush() { tput cr; tput el; }
-
 status() { echo -e "\e[0;32m Success!\e[0m"; }
+
+flush() { tput cr; tput el; }
 
 #================================================
 #    USER PROMPTS
 #================================================
 
 user_confirm() {
-	flush; read -rp $'\n\n You are about to install Arch Linux (Hardened). Proceed? [Y/n]: '
+	flush; read -rp $'\n  You\'re about to install Arch Linux (Hardened). Proceed? [Y/n]: '
 	confirm="${REPLY:-y}"
 
 	if [[ ! $confirm =~ ^[Yy]$ ]]; then
@@ -257,7 +257,7 @@ sys_grub() {
 #================================================
 
 svc_enable() {
-	for s in apparmor chronyd firewalld lxdm NetworkManager; do
+	for s in apparmor chronyd systemd-resolved NetworkManager nftables lxdm; do
 		echo -e "\nEnabling $s ..."
 		chroot "systemctl list-unit-files | grep -q $s" || continue
 		chroot "systemctl enable $s"
@@ -366,7 +366,7 @@ main() {
 	sys_grub
 
 	svc_enable
-	svc_firewall
+#	svc_firewall
 	svc_firejail
 
 	user_dotfiles

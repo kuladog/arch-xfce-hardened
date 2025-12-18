@@ -1,0 +1,18 @@
+#include <tunables/global>
+
+profile firewalld /usr/bin/firewalld {
+  # Network and basic file access
+  network inet,
+  capability net_admin,
+  capability net_bind_service,
+  capability setgid,
+  capability setuid,
+
+  # Only allow reading firewall config
+  /etc/firewalld/** r,
+  /etc/nftables.conf r,
+  /var/lib/firewalld/** rw,
+
+  # Deny everything else
+  deny /**,
+}

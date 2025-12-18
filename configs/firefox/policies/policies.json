@@ -9,9 +9,10 @@
     "BlockAboutSupport": true,
     "Bookmarks": [],
     "CaptivePortal": false,
-    "ContentAnalysis": {
-      "Enabled": false
-    },
+	"CaptivePortal": {
+	  "Enabled": false,
+	  "Locked": true
+	},
     "Cookies": {
       "Behavior": "reject-tracker-and-partition-foreign",
       "BehaviorPrivateBrowsing": "reject-tracker-and-partition-foreign",
@@ -133,6 +134,10 @@
     },
     "HttpsOnlyMode": "force_enabled",
     "LegacyProfiles": true,
+    "NetworkConnectivity": {
+	  "Enabled": false,
+	  "Locked": true
+	},
     "NetworkPrediction": false,
     "NewTabPage": false,
     "NoDefaultBookmarks": true,

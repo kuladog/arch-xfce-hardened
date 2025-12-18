@@ -1,0 +1,17 @@
+#include <tunables/global>
+
+profile systemd /usr/lib/systemd/systemd {
+  capability sys_admin,
+  capability sys_boot,
+  capability sys_chroot,
+  capability setuid,
+  capability setgid,
+
+  # Essential config
+  /etc/systemd/** r,
+  /run/systemd/** rw,
+  /var/log/journal/** rw,
+
+  # Deny everything else
+  deny /**,
+}
