@@ -9,7 +9,7 @@ INSTALL=(
 	efibootmgr
 	chrony
 	networkmanager
-	nftables
+	firewalld
 	apparmor
 	sudo
 	gvfs
@@ -31,6 +31,7 @@ INSTALL=(
 	xfce4-screenshooter
 	xfce4-session
 	xfce4-settings
+	xfce4-taskmanager
 	xfce4-terminal
 	xfconf
 	xfdesktop
@@ -46,7 +47,6 @@ INSTALL=(
 	git
 	github-cli
 	gnome-disk-utility
-	htop
 	nm-connection-editor
 	pavucontrol
 	transmission-gtk

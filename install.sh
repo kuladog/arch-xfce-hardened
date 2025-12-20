@@ -54,7 +54,7 @@ user_confirm() {
 	fi
 }
 
-set_password() {
+user_passwords() {
 	local login="$1"
 	local p1 p2
 
@@ -68,12 +68,12 @@ set_password() {
 	[[ $login = root ]] && ROOTPASS="root:$p1" || USERPASS="$login:$p1"
 }
 
-user_questions() {
+user_namespace() {
 	flush; read -rp $'\nChoose hostname > '; HOST="${REPLY:-archx}"
     flush; read -rp $'\nChoose username > '; NAME="${REPLY:-user}"
 
-    echo && set_password root
-    echo && set_password "$NAME"
+    echo && user_passwords root
+    echo && user_passwords "$NAME"
 }
 
 #================================================
@@ -170,12 +170,27 @@ install_vdagent() {
 }
 
 install_theme() {
+	local theme_dir="/mnt/home/${NAME}/.themes"
+
+	curl -LO https://github.com/kuladog/adwaita-grey-dark/archive/refs/heads/main.zip
+
+	if [[ -f ${DIR}/main.zip ]]; then
+		echo -e "\nSetting desktop theme ..."
+
+		bsdtar xf main.zip
+		mkdir -p "$theme_dir"
+		mv *grey-dark*/ "${theme_dir}"/Adwaita-grey-dark
+		status
+	fi
+}
+
+install_icons() {
+	echo -e "\nSetting desktop icons ..."
+
 	pacstrap -K /mnt wget papirus-icon-theme
 
-	echo -e "\nSetting desktop theme ..."
-
 	chroot "curl -s https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-folders/master/install.sh | bash"
-	chroot "papirus-folders -C bluegrey --theme Papirus-Dark"
+	chroot "papirus-folders -C black --theme Papirus-Dark"
 	status
 }
 
@@ -257,7 +272,7 @@ sys_grub() {
 #================================================
 
 svc_enable() {
-	for s in apparmor chronyd systemd-resolved NetworkManager nftables lxdm; do
+	for s in apparmor chronyd systemd-resolved NetworkManager firewalld lxdm; do
 		echo -e "\nEnabling $s ..."
 		chroot "systemctl list-unit-files | grep -q $s" || continue
 		chroot "systemctl enable $s"
@@ -268,7 +283,7 @@ svc_enable() {
 svc_firewall() {
 	RULESET=(
 		--set-default-zone=drop
-		--remove-forward
+		--add-service=https
 		--add-icmp-block-inversion
 		)
 
@@ -349,7 +364,7 @@ finish() {
 main() {
 	banner
 	user_confirm
-	user_questions
+	user_namespace
 
 	disk_select
 	disk_partition
@@ -359,6 +374,7 @@ main() {
 	install_system
 	install_vdagent
 	install_theme
+	install_icons
 
 	sys_accounts
 	sys_configs
@@ -366,7 +382,7 @@ main() {
 	sys_grub
 
 	svc_enable
-#	svc_firewall
+	svc_firewall
 	svc_firejail
 
 	user_dotfiles

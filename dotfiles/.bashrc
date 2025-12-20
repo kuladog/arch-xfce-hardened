@@ -1,13 +1,13 @@
 # ~/.bashrc
 
-# Don't run if non-interactive
+# Exit if not an interactive shell
 [[ $- != *i* ]] && return
 
 # User path if directory exists
 [[ -d ~/.local/bin ]] && PATH="$HOME/.local/bin:$PATH"
 
-# Prompt color and formatting
-PS1="\[\e[0;38;5;68m\]\u@\h \[\e[38;5;43m\]\W\[\e[m\]\$ "
+# Prompt color and foramtting
+PS1="\[\e[0;38;5;43m\]\u@\h \[\e[38;5;6m\]\W\[\e[m\]\$ "
 
 # Prepend 'cd' when entering path
 shopt -s autocd
@@ -19,17 +19,17 @@ PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 export HISTSIZE=30
 export HISTFILESIZE=50
 
-# Ignore password history
+# Ignore useless history
 export HISTCONTROL=ignoreboth
 export HISTIGNORE="ssh *:passwd *:??:???"
 
 # Limit access to bash history
 [[ -f ~/.bash_history ]] && chmod 600 "$HOME/.bash_history"
 
-# Load aliases and functions
+# Source aliases and functions
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
-# Colored list output
+# Colored lists output
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias egrep='grep -E --color=auto'

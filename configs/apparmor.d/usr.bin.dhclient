@@ -1,4 +1,4 @@
-#include <tunables/global>
+include <tunables/global>
 
 profile dhclient /sbin/dhclient {
   network inet udp,
@@ -10,6 +10,5 @@ profile dhclient /sbin/dhclient {
   /etc/dhcp/** r,
   /var/lib/dhcp/** rw,
 
-  # Deny everything else
-  deny /**,
+  deny /**
 }

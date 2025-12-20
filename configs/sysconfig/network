@@ -7,3 +7,7 @@ IPV6INIT=no
 # no avahi
 NOZEROCONF=yes
 
+# quad9
+DNS1=9.9.9.9
+DNS2=149.112.112.112
+

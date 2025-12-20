@@ -39,7 +39,6 @@
     "DisablePasswordReveal": true,
     "DisablePocket": true,
     "DisablePrivateBrowsing": false,
-    "DisableProfileGroups": true,
     "DisableProfileImport": true,
     "DisableProfileRefresh": true,
     "DisableSafeMode": true,
@@ -126,10 +125,6 @@
     },
     "HttpsOnlyMode": "force_enabled",
     "LegacyProfiles": true,
-    "NetworkConnectivity": {
-	  "Enabled": false,
-	  "Locked": true
-	},
     "NetworkPrediction": false,
     "NewTabPage": false,
     "NoDefaultBookmarks": true,
