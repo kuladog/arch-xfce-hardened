@@ -1,6 +1,6 @@
 # /etc/systemd/network/99-nordlynx.network
 
-# Prevent NordLynx DNS injection
+# Prevent nordlynx DNS injection
 
 [Match]
 Name=nordlynx

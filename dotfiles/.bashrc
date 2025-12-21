@@ -12,7 +12,7 @@ PS1="\[\e[0;38;5;43m\]\u@\h \[\e[38;5;6m\]\W\[\e[m\]\$ "
 # Prepend 'cd' when entering path
 shopt -s autocd
 
-# Write history immediately after each cmd
+# Write history after each command
 PROMPT_COMMAND="history -a; history -n${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 
 # Limit history size
@@ -29,7 +29,7 @@ export HISTIGNORE="ssh *:passwd *:??:???"
 # Source aliases and functions
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
-# Colored lists output
+# Colour list output
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias egrep='grep -E --color=auto'
