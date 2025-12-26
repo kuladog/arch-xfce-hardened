@@ -101,6 +101,7 @@
             <Or>
                 <Filename>xfce4-mail-reader.desktop</Filename>
                 <Filename>xfce4-web-browser.desktop</Filename>
+                <Filename>remote-viewer.desktop</Filename>
                 <Filename>bvnc.desktop</Filename>
                 <Filename>bssh.desktop</Filename>
             </Or>

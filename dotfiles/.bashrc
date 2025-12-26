@@ -29,7 +29,7 @@ export HISTIGNORE="ssh *:passwd *:??:???"
 # Source aliases and functions
 [[ -f ~/.bash_aliases ]] && source ~/.bash_aliases
 
-# Colour list output
+# Colored list output
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias egrep='grep -E --color=auto'

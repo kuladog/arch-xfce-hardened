@@ -179,7 +179,7 @@ install_theme() {
 
 		bsdtar xf main.zip
 		mkdir -p "$theme_dir"
-		mv *grey-dark*/ "${theme_dir}"/Adwaita-grey-dark
+		mv ./*grey-dark* "${theme_dir}"/Adwaita-grey-dark
 		status
 	fi
 }
@@ -257,7 +257,7 @@ sys_fstab() {
 sys_grub() {
     echo -e "\nInstalling GRUB ..."
 
-    if sfdisk -l $DEVICE | grep -q gpt; then
+    if sfdisk -l "$DEVICE" | grep -q gpt; then
         chroot "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB"
     else
         chroot "grub-install --target=i386-pc $DEVICE"
@@ -332,7 +332,7 @@ user_dotfiles() {
 }
 
 user_permissions() {
-	echo -e "\nFixing permissions ..."
+	echo -e "\nSetting permissions ..."
 
 	chroot "chown -R $NAME:$NAME /home/$NAME"
 	chroot "chmod -R 750 /home/$NAME"
@@ -340,6 +340,8 @@ user_permissions() {
 }
 
 user_no_recents() {
+	echo -e "\nDisabling recent files ..."
+
 	local recent="/mnt/home/${NAME}/.local/share/recently-used.xbel"
 
 	truncate -s 0 "$recent"
@@ -352,7 +354,8 @@ user_no_recents() {
 #================================================
 
 finish() {
-	echo -e "\nSetup complete! Press any key to reboot.."
+	clear
+	echo -e "\n Setup complete!\n\n Press any key to reboot..."
 	read -n 1 -rs
 
 	rm -rf ../{arch-xfce*,*main.zip}
