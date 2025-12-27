@@ -137,13 +137,34 @@
       "EnablePermissions": false
     },
     "Permissions": {
-      "Camera": { "BlockNewRequests": true, "Locked": true },
-      "Microphone": { "BlockNewRequests": true, "Locked": true },
-      "Location": { "BlockNewRequests": true, "Locked": true },
-      "Notifications": { "BlockNewRequests": true, "Locked": true },
-      "Autoplay": { "Default": "block-audio-video", "Locked": true },
-      "VirtualReality": { "BlockNewRequests": true, "Locked": true },
-      "ScreenShare": { "BlockNewRequests": true, "Locked": true }
+      "Camera": {
+		  "BlockNewRequests": true,
+		  "Locked": true
+		},
+      "Microphone": {
+		  "BlockNewRequests": true,
+		  "Locked": true
+		},
+      "Location": {
+		  "BlockNewRequests": true,
+		  "Locked": true
+		},
+      "Notifications": {
+		  "BlockNewRequests": true,
+		  "Locked": true
+		},
+      "Autoplay": {
+		  "Default": "block-audio-video",
+		  "Locked": true
+		},
+      "VirtualReality": {
+		  "BlockNewRequests": true,
+		  "Locked": true
+		},
+      "ScreenShare": {
+		  "BlockNewRequests": true,
+		  "Locked": true
+		}
     },
     "PictureInPicture": {
       "Enabled": true,

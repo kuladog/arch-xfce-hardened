@@ -11,7 +11,7 @@ PasswordAuthentication no
 PermitEmptyPasswords no
 PermitRootLogin no
 PermitTunnel no
-Port
+#Port 22
 Protocol 2
 PubkeyAuthentication yes
 TCPKeepAlive no
