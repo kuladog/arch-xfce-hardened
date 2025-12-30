@@ -1,18 +1,21 @@
 # /etc/ssh/sshd_config
 
-AllowAgentForwarding no
-Ciphers aes256-ctr,aes192-ctr,aes128-ctr
-ClientAliveCountMax 0
-ClientAliveInterval 300
+Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305
 MACs hmac-sha2-512,hmac-sha2-256
-MaxAuthTries 3
-MaxSessions 2
+KexAlgorithms curve25519-sha256,ecdh-sha2-nistp256
+UsePAM yes
+PubkeyAuthentication yes
 PasswordAuthentication no
-PermitEmptyPasswords no
 PermitRootLogin no
-PermitTunnel no
+LoginGraceTime 20
+MaxAuthTries 3
+MaxSessions 1
+MaxStartups 1
+ClientAliveInterval 15
+ClientAliveCountMax 3
+TCPKeepAlive no
 Port
 Protocol 2
-PubkeyAuthentication yes
-TCPKeepAlive no
+DisableForwarding yes
+ChrootDirectory none
 LogLevel VERBOSE
