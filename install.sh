@@ -272,7 +272,7 @@ sys_grub() {
 #================================================
 
 svc_enable() {
-	for s in apparmor auditd chronyd systemd-resolved NetworkManager firewalld lxdm; do
+	for s in apparmor chronyd systemd-resolved NetworkManager firewalld lxdm; do
 		echo -e "\nEnabling $s ..."
 		chroot "systemctl list-unit-files | grep -q $s" || continue
 		chroot "systemctl enable $s"
