@@ -5,8 +5,9 @@ MACs hmac-sha2-512,hmac-sha2-256
 KexAlgorithms curve25519-sha256,ecdh-sha2-nistp256
 UsePAM yes
 PubkeyAuthentication yes
-PasswordAuthentication no
 PermitRootLogin no
+PasswordAuthentication no
+ChallengeResponseAuthentication no
 LoginGraceTime 20
 MaxAuthTries 3
 MaxSessions 1
