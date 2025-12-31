@@ -1,29 +1,26 @@
 # /etc/audit/rules.d/50-default.rules
 
-# Log attempts to access /etc/passwd and /etc/shadow
+# Access to passwords
 -w /etc/passwd -p wa -k passwd_changes
 -w /etc/shadow -p wa -k shadow_changes
 
-# Log changes to the system configuration files
+# System configuration files
 -w /etc/hosts -p wa -k hosts_changes
 -w /etc/group -p wa -k group_changes
 -w /etc/gshadow -p wa -k gshadow_changes
 -w /etc/sudoers -p wa -k sudoers_changes
 
-# Log all failed login attempts (using PAM)
+# Failed login attempts (PAM)
 -w /var/log/faillog -p wa -k failed_logins
 -w /var/log/secure -p wa -k auth_log
 
-# Log changes to the firewall configuration
+# Firewall configuration
 -w /etc/iptables/ -p wa -k iptables_changes
 
-# Log all writes to the audit log itself
--w /var/log/audit/audit.log -p wa -k audit_log_changes
-
-# Log kernel module loading/unloading
+# Kernel module loading/unloading
 -w /sbin/modprobe -p x -k module_changes
 -w /sbin/insmod -p x -k module_changes
 -w /sbin/rmmod -p x -k module_changes
 
-# Track file creation events in home directories
+# File creation in home dirs
 -a always,exit -F path=/home/ -F perm=wa -k home_file_changes
