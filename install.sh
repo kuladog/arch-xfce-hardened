@@ -114,7 +114,7 @@ EOF
 
 disk_format() {
 	while true; do
-		echo -e "\nChoose filesystem (ext4, btrfs, xfs)"
+		echo -e "\nChoose filesystem (ext4, btrfs, xfs)\n"
 		flush; read -rp " > " fstype
         [[ $fstype =~ ^(ext[234]|btrfs|xfs)$ ]] && break
         echo "Invalid filesystem."
@@ -232,26 +232,26 @@ sys_configs() {
 }
 
 sys_fstab() {
-	echo -e "\nConfiguring filesystem table ..."
+    echo -e "\nHardening mount points ..."
 
-	local fstab=/mnt/etc/fstab
+	local fstable="/etc/fstab"
 
-	if genfstab -U /mnt >> "$fstab"; then
+	# Backup fstab and edit in place
+	if [[ -w /etc/fstab ]]; then
 		sed -i \
 		-e '/boot/ s=relatime=noatime=' \
 		-e '/\/[[:space:]]/ s=relatime=noatime=' \
 		-e '/home\|var/ s=defaults=noatime,nodev,nosuid=' \
 		-e 's/\S\+/0/5' \
 		-e 's/\S\+/0/6' \
-		"$fstab"
+		"$fstable"
 
 		{
-		echo "tmpfs /tmp        tmpfs   nodev,nosuid,noexec 0 0"
-		echo "tmpfs /var/tmp    tmpfs   nodev,nosuid,noexec 0 0"
-		echo "tmpfs /dev/shm    tmpfs   nodev,nosuid,noexec 0 0"
-		} >> "$fstab"
+		echo "tmpfs /tmp        tmpfs   noatime,nodev,nosuid,noexec 0 0"
+		echo "tmpfs /var/tmp    tmpfs   noatime,nodev,nosuid,noexec 0 0"
+		echo "tmpfs /dev/shm    tmpfs   noatime,nodev,nosuid,noexec 0 0"
+		} >> "$fstable"
 	fi
-	status
 }
 
 sys_grub() {

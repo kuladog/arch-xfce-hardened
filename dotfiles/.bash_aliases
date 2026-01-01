@@ -1,8 +1,8 @@
 # ~/.bash_aliases
 
-alias upd='sudo pacman -Syu --noconfirm'
 alias get='sudo pacman -S'
 alias rem='sudo pacman -Rns'
+alias upd='sudo pacman -Syu --noconfirm'
 alias sano='sudo -B nano'
 alias sedit='sudo xdg-open'
 alias scurl='curl --tlsv1.3 --proto =https -LO'

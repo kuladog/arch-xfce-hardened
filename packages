@@ -16,6 +16,9 @@ INSTALL=(
 	nano
 	xorg-server
 	xorg-xinit
+)
+
+INSTALL+=(
 	exo
 	garcon
 	libxfce4ui
@@ -31,11 +34,13 @@ INSTALL=(
 	xfce4-session
 	xfce4-settings
 	xfce4-terminal
-	xfce4-taskmanager
 	xfconf
 	xfdesktop
 	xfwm4
 	lxdm
+)
+
+INSTALL+=(
 	7zip
 	atril
 	ffmpeg
@@ -46,6 +51,7 @@ INSTALL=(
 	git
 	github-cli
 	gparted
+	htop
 	nm-connection-editor
 	pavucontrol
 	transmission-gtk
