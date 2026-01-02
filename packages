@@ -16,9 +16,6 @@ INSTALL=(
 	nano
 	xorg-server
 	xorg-xinit
-)
-
-INSTALL+=(
 	exo
 	garcon
 	libxfce4ui
@@ -38,9 +35,6 @@ INSTALL+=(
 	xfdesktop
 	xfwm4
 	lxdm
-)
-
-INSTALL+=(
 	7zip
 	atril
 	ffmpeg
