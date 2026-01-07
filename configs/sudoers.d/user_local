@@ -1,4 +1,4 @@
-# /etc/sudoers.d/local-sudo
+# /etc/sudoers.d/user_local
 
 Defaults  env_reset
 Defaults  secure_path = /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/home/<user>/.local/bin

@@ -32,8 +32,8 @@
       <property name="style" type="uint" value="0"/>
     </property>
     <property name="plugin-3" type="string" value="applicationsmenu">
-      <property name="button-title" type="string" value="  Arch-X   "/>
-      <property name="button-icon" type="string" value="distributor-logo-archlabs"/>
+      <property name="button-title" type="string" value="   Arch-X    "/>
+      <property name="button-icon" type="string" value="archlinux-logo"/>
     </property>
     <property name="plugin-5" type="string" value="separator">
       <property name="expand" type="bool" value="true"/>
@@ -44,7 +44,7 @@
     </property>
     <property name="plugin-7" type="string" value="clock">
       <property name="digital-layout" type="uint" value="3"/>
-      <property name="digital-time-font" type="string" value="Sans 10"/>
+      <property name="digital-time-font" type="string" value="Sans 11"/>
       <property name="digital-time-format" type="string" value="%R"/>
       <property name="timezone" type="string" value="America/Los_Angeles"/>
       <property name="tooltip-format" type="string" value="%A, %b %d "/>

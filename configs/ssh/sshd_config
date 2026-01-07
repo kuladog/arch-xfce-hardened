@@ -1,16 +1,17 @@
 # /etc/ssh/sshd_config
 
-Port 1440
+Port <ssh-port>
+
 Protocol 2
 DisableForwarding yes
-Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305
-MACs hmac-sha2-512,hmac-sha2-256
-KexAlgorithms curve25519-sha256,ecdh-sha2-nistp256
 UsePAM yes
 PubkeyAuthentication yes
 PermitRootLogin no
 PasswordAuthentication no
 ChallengeResponseAuthentication no
+Ciphers aes256-gcm@openssh.com,aes128-gcm@openssh.com,chacha20-poly1305
+MACs hmac-sha2-512,hmac-sha2-256
+KexAlgorithms curve25519-sha256,ecdh-sha2-nistp256
 LoginGraceTime 20
 MaxAuthTries 3
 MaxSessions 1

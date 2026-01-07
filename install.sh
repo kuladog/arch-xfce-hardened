@@ -3,7 +3,7 @@
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
-#  Revised: 2025-12-15
+#  Revised: 2026-01-01
 #
 
 set -euo pipefail
@@ -153,7 +153,7 @@ install_system() {
 	echo -e "\nInstalling system packages ..."
 
     if [[ -f ${DIR}/packages ]]; then
-		source "${DIR}/packages"
+		source packages
 		pacstrap -K /mnt "${INSTALL[@]}"
 		status
 	else
@@ -220,25 +220,45 @@ sys_configs() {
     echo -e "\nCopying configuration files ..."
 
 	if [[ -d ${DIR}/configs ]]; then
-		find "${DIR}/configs" -type f | while read -r file; do
+		find "${DIR}"/configs -type f | while read -r file; do
 			dest="/mnt/etc/${file#${DIR}/configs/}"
 			mkdir -p "$(dirname "$dest")"
 			sed -e "s|<user>|${NAME}|" -e "s|<host>|${HOST}|" "$file" > "$dest"
 		done
 		status
 	fi
+}
 
-	chroot "chown -R root:root /etc"
+sys_permissions() {
+	echo -e "\nSetting file permissions ..."
+
+	# Post-copy sanity check
+	chroot "find /etc/systemd -type d -exec chmod 0755 {} +"
+	chroot "find /etc/systemd -type f -exec chmod 0644 {} +"
+
+	chroot "find /etc/cron.*/ -type d -exec chmod 0640 {} +"
+
+	for file in /etc/{crontab,cron.*,at.*,ssh/sshd_config}; do
+		[[ -f $file ]] && chroot "chmod 0600 $file"
+	done
+
+	for file in /etc/{sudoers,sudoers.d/*}; do
+		[[ -f $file ]] && chroot "chmod 0440 $file"
+	done
+
+	## CHMOD CHROOT ??
+	for file in /etc/{shadow,gshadow}; do
+		[[ -f $file ]] && chroot "chmod 0400 $file"
+	done
 }
 
 sys_fstab() {
     echo -e "\nHardening mount points ..."
 
-	local fstable="/etc/fstab"
+	fstable="/mnt/etc/fstab"
 
-	# Backup fstab and edit in place
-	if [[ -w /etc/fstab ]]; then
-		sed -i \
+	if genfstab -U /mnt > "$fstable"; then
+		sed -i.bak \
 		-e '/boot/ s=relatime=noatime=' \
 		-e '/\/[[:space:]]/ s=relatime=noatime=' \
 		-e '/home\|var/ s=defaults=noatime,nodev,nosuid=' \
@@ -250,7 +270,13 @@ sys_fstab() {
 		echo "tmpfs /tmp        tmpfs   noatime,nodev,nosuid,noexec 0 0"
 		echo "tmpfs /var/tmp    tmpfs   noatime,nodev,nosuid,noexec 0 0"
 		echo "tmpfs /dev/shm    tmpfs   noatime,nodev,nosuid,noexec 0 0"
+		echo "proc  /proc       proc	noatime,nodev,nosuid,noexec 0 0"
 		} >> "$fstable"
+
+		chroot "chmod 1777 /tmp /var/tmp /dev/shm"
+	else
+		echo "ERROR: /etc/fstab could not be created."
+		exit 1
 	fi
 }
 
@@ -263,8 +289,10 @@ sys_grub() {
         chroot "grub-install --target=i386-pc $DEVICE"
     fi
 
-    chroot "grub-mkconfig -o /boot/grub/grub.cfg"
-    status
+    if ! chroot "grub-mkconfig -o /boot/grub/grub.cfg"; then
+		echo "ERROR: Grub could not be configured."
+		exit 1
+	fi
 }
 
 #================================================
@@ -322,7 +350,7 @@ user_dotfiles() {
 	mkdir -p /mnt/home/"${NAME}"/{Documents,Downloads,Projects,.aur}
 
 	if [[ -d ${DIR}/dotfiles ]]; then
-		find "${DIR}/dotfiles" -type f | while read -r file; do
+		find "${DIR}"/dotfiles -type f | while read -r file; do
 			dest="/mnt/home/${NAME}/${file#${DIR}/dotfiles/}"
 			mkdir -p "$(dirname "$dest")"
 			sed -e "s|<user>|${NAME}|" "$file" > "$dest"
@@ -346,6 +374,15 @@ user_no_recents() {
 
 	truncate -s 0 "$recent"
 	chattr +i "$recent" 2>/dev/null || true
+	status
+}
+
+user_firefox() {
+	echo -e "\nHardening Firefox ..."
+
+	telemetry="/mnt/usr/lib/firefox/{crashreporter,pingsender}"
+
+	[[ -f $telemetry ]] && rm -f "$telemetry"
 	status
 }
 
@@ -381,6 +418,7 @@ main() {
 
 	sys_accounts
 	sys_configs
+#	sys_permissions
 	sys_fstab
 	sys_grub
 
@@ -391,6 +429,7 @@ main() {
 	user_dotfiles
 	user_permissions
 	user_no_recents
+	user_firefox
 
 	finish
 }

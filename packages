@@ -39,7 +39,6 @@ INSTALL=(
 	atril
 	ffmpeg
 	firefox
-	firefox-ublock-origin
 	firejail
 	geany
 	git
