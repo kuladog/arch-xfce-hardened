@@ -246,7 +246,6 @@ sys_permissions() {
 		[[ -f $file ]] && chroot "chmod 0440 $file"
 	done
 
-	## CHMOD CHROOT ??
 	for file in /etc/{shadow,gshadow}; do
 		[[ -f $file ]] && chroot "chmod 0400 $file"
 	done
@@ -418,7 +417,7 @@ main() {
 
 	sys_accounts
 	sys_configs
-#	sys_permissions
+	sys_permissions
 	sys_fstab
 	sys_grub
 
