@@ -4,23 +4,20 @@
 -w /etc/passwd -p wa -k passwd_changes
 -w /etc/shadow -p wa -k shadow_changes
 
-# System configuration files
--w /etc/hosts -p wa -k hosts_changes
+# System authentication
 -w /etc/group -p wa -k group_changes
 -w /etc/gshadow -p wa -k gshadow_changes
+-w /etc/ssh/sshd_config -p wa -k ssh_config_changes
 -w /etc/sudoers -p wa -k sudoers_changes
 
-# Failed login attempts (PAM)
+# Failed login attempts
 -w /var/log/faillog -p wa -k failed_logins
 -w /var/log/secure -p wa -k auth_log
 
-# Firewall configuration
--w /etc/iptables/ -p wa -k iptables_changes
+# Firewalld configuration
+-w /etc/firewalld/ -p wa -k nftables_changes
 
-# Kernel module loading/unloading
--w /sbin/modprobe -p x -k module_changes
--w /sbin/insmod -p x -k module_changes
--w /sbin/rmmod -p x -k module_changes
-
-# File creation in home dirs
--a always,exit -F path=/home/ -F perm=wa -k home_file_changes
+# Kernel module loading
+-w /usr/sbin/modprobe -p x -k module_changes
+-w /usr/sbin/insmod -p x -k module_changes
+-w /usr/sbin/rmmod -p x -k module_changes
