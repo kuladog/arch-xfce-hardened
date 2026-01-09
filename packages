@@ -23,7 +23,6 @@ INSTALL=(
 	thunar
 	thunar-archive-plugin
 	tumbler
-	xfce4-notifyd
 	xfce4-panel
 	xfce4-power-manager
 	xfce4-pulseaudio-plugin
@@ -48,7 +47,6 @@ INSTALL=(
 	nm-connection-editor
 	pavucontrol
 	transmission-gtk
-	veracrypt
 	viewnior
 	vlc
 	xarchiver

@@ -236,7 +236,9 @@ sys_permissions() {
 	chroot "find /etc/systemd -type d -exec chmod 0755 {} +"
 	chroot "find /etc/systemd -type f -exec chmod 0644 {} +"
 
-	chroot "find /etc/cron.*/ -type d -exec chmod 0640 {} +"
+	for dir in /etc/cron.*/; do
+		[[ -f $dir ]] && chroot "chmod 0640 $dir"
+	done
 
 	for file in /etc/{crontab,cron.*,at.*,ssh/sshd_config}; do
 		[[ -f $file ]] && chroot "chmod 0600 $file"
