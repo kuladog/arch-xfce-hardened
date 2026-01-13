@@ -3,7 +3,7 @@
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
-#  Revised: 2026-01-01
+#  Revised: 2026-01-10
 #
 
 set -euo pipefail
@@ -44,7 +44,7 @@ flush() { tput cr; tput el; }
 #    USER PROMPTS
 #================================================
 
-user_confirm() {
+prompt_confirm() {
 	flush; read -rp $'\n  You\'re about to install Arch Linux (Hardened). Proceed? [Y/n]: '
 	confirm="${REPLY:-y}"
 
@@ -54,7 +54,7 @@ user_confirm() {
 	fi
 }
 
-user_passwords() {
+prompt_passwords() {
 	local login="$1"
 	local p1 p2
 
@@ -68,19 +68,15 @@ user_passwords() {
 	[[ $login = root ]] && ROOTPASS="root:$p1" || USERPASS="$login:$p1"
 }
 
-user_namespace() {
+prompt_namespace() {
 	flush; read -rp $'\nChoose hostname > '; HOST="${REPLY:-archx}"
     flush; read -rp $'\nChoose username > '; NAME="${REPLY:-user}"
 
-    echo && user_passwords root
-    echo && user_passwords "$NAME"
+    echo && prompt_passwords root
+    echo && prompt_passwords "$NAME"
 }
 
-#================================================
-#    DISK MANAGEMENT
-#================================================
-
-disk_select() {
+prompt_disks() {
 	echo -e "\nAvailable disks:"
 	sfdisk -l | grep -E 'Lable|Type|Size|nvme|sd|hd|vd'
 
@@ -92,42 +88,68 @@ disk_select() {
     done
 }
 
+prompt_fstypes() {
+	echo -e "\nChoose filesystem (ext4, btrfs, xfs)\n"
+
+	while true; do
+		flush; read -rp "Filesystem: " FORMAT
+		[[ $FORMAT =~ ^(ext4|btrfs|xfs)$ ]] && break
+		echo "Invalid filesystem."
+	done
+}
+#================================================
+#    DISK MANAGEMENT
+#================================================
+
 disk_partition() {
     echo -e "\nPartitioning $DEVICE ..."
 
-    if sfdisk -l "$DEVICE" | grep -q gpt; then
-        sfdisk "$DEVICE" <<EOF >/dev/null
+    wipefs -a "$DEVICE"
+    sfdisk --delete "$DEVICE" 2>/dev/null || true
+
+    if [[ -d /sys/firmware/efi ]]; then
+        sfdisk "$DEVICE" >/dev/null <<EOF
 label: gpt
 unit: sectors
-${DEVICE}1 : start=2048, size=2099199, type=ef
-${DEVICE}2 : start=2099200, size=+, type=83
+1 : start=2048, size=+1G, type=ef00
+2 : start=,     size=+,   type=83
 EOF
     else
-        sfdisk "$DEVICE" <<EOF >/dev/null
-label: mbr
+        sfdisk "$DEVICE" >/dev/null <<EOF
+label: dos
 unit: sectors
-${DEVICE}1 : start=2048, size=+, type=83
+1 : start=2048, size=+, type=83
 EOF
     fi
-	status
+
+    partprobe "$DEVICE" || true
+    udevadm settle
+    status
 }
 
 disk_format() {
-	while true; do
-		echo -e "\nChoose filesystem (ext4, btrfs, xfs)\n"
-		flush; read -rp " > " fstype
-        [[ $fstype =~ ^(ext[234]|btrfs|xfs)$ ]] && break
-        echo "Invalid filesystem."
-    done
-
 	echo -e "\nFormating partitions ..."
-    if sfdisk -l "$DEVICE" | grep -q gpt; then
-        mkfs.fat -F32 "${DEVICE}1" >/dev/null
-        mkfs."$fstype" "${DEVICE}2" >/dev/null
+
+	part_suffix=""
+	[[ "$DEVICE" =~ (nvme|mmcblk) ]] && part_suffix="p"
+
+    if [[ -d /sys/firmware/efi ]]; then
+        mkfs.fat -F32 "${DEVICE}${part_suffix}1" >/dev/null
+
+        if [[ $FORMAT == xfs ]]; then
+            mkfs.xfs -f "${DEVICE}${part_suffix}2" >/dev/null
+        else
+            mkfs."$FORMAT" "${DEVICE}${part_suffix}2" >/dev/null
+        fi
     else
-        mkfs."$fstype" "${DEVICE}1" >/dev/null
+        if [[ $FORMAT == xfs ]]; then
+            mkfs.xfs -f "${DEVICE}${part_suffix}1" >/dev/null
+        else
+            mkfs."$FORMAT" "${DEVICE}${part_suffix}1" >/dev/null
+        fi
     fi
-	status
+
+    status
 }
 
 disk_mount() {
@@ -136,12 +158,13 @@ disk_mount() {
     mkdir -p /mnt
 
     if sfdisk -l "$DEVICE" | grep -q gpt; then
-		mkdir -p /mnt/{,boot}
+		mkdir -p /mnt/boot
 		mount "${DEVICE}2" /mnt
 		mount "${DEVICE}1" /mnt/boot
     else
         mount "${DEVICE}1" /mnt
     fi
+
 	status
 }
 
@@ -198,7 +221,7 @@ install_icons() {
 #    SYSTEM CONFIGURATION
 #================================================
 
-sys_accounts() {
+config_accounts() {
 	echo -e "\nSetting hostname ..."
 	echo "$HOST" > /mnt/etc/hostname
 	status
@@ -216,7 +239,7 @@ sys_accounts() {
 	status
 }
 
-sys_configs() {
+config_templates() {
     echo -e "\nCopying configuration files ..."
 
 	if [[ -d ${DIR}/configs ]]; then
@@ -225,35 +248,12 @@ sys_configs() {
 			mkdir -p "$(dirname "$dest")"
 			sed -e "s|<user>|${NAME}|" -e "s|<host>|${HOST}|" "$file" > "$dest"
 		done
+
 		status
 	fi
 }
 
-sys_permissions() {
-	echo -e "\nSetting file permissions ..."
-
-	# Post-copy sanity check
-	chroot "find /etc/systemd -type d -exec chmod 0755 {} +"
-	chroot "find /etc/systemd -type f -exec chmod 0644 {} +"
-
-	for dir in /etc/cron.*/; do
-		[[ -f $dir ]] && chroot "chmod 0640 $dir"
-	done
-
-	for file in /etc/{crontab,cron.*,at.*,ssh/sshd_config}; do
-		[[ -f $file ]] && chroot "chmod 0600 $file"
-	done
-
-	for file in /etc/{sudoers,sudoers.d/*}; do
-		[[ -f $file ]] && chroot "chmod 0440 $file"
-	done
-
-	for file in /etc/{shadow,gshadow}; do
-		[[ -f $file ]] && chroot "chmod 0400 $file"
-	done
-}
-
-sys_fstab() {
+config_fstab() {
     echo -e "\nHardening mount points ..."
 
 	fstable="/mnt/etc/fstab"
@@ -281,7 +281,7 @@ sys_fstab() {
 	fi
 }
 
-sys_grub() {
+config_grub() {
     echo -e "\nInstalling GRUB ..."
 
     if sfdisk -l "$DEVICE" | grep -q gpt; then
@@ -296,11 +296,7 @@ sys_grub() {
 	fi
 }
 
-#================================================
-#    CONFIGURE SERVICES
-#================================================
-
-svc_enable() {
+config_services() {
 	for s in apparmor chronyd systemd-resolved NetworkManager firewalld lxdm; do
 		echo -e "\nEnabling $s ..."
 		chroot "systemctl list-unit-files | grep -q $s" || continue
@@ -309,11 +305,41 @@ svc_enable() {
 	done
 }
 
-svc_firewall() {
+#================================================
+#    CONFIGURE SERVICES
+#================================================
+
+secure_permissions() {
+	echo -e "\nSetting file permissions ..."
+
+	chroot "find /etc/systemd -type d -exec chmod 0755 {} +"
+	chroot "find /etc/systemd -type f -exec chmod 0644 {} +"
+
+	for dir in /etc/cron.*/; do
+		[[ -f $dir ]] && chroot "chmod 0640 $dir"
+	done
+
+	for file in /etc/{crontab,cron.*,at.*,ssh/sshd_config}; do
+		[[ -f $file ]] && chroot "chmod 0600 $file"
+	done
+
+	for file in /etc/{sudoers,sudoers.d/*}; do
+		[[ -f $file ]] && chroot "chmod 0440 $file"
+	done
+
+	for file in /etc/{shadow,gshadow}; do
+		[[ -f $file ]] && chroot "chmod 0400 $file"
+	done
+
+	status
+}
+
+secure_firewall() {
 	RULESET=(
 		--set-default-zone=drop
 		--add-service=https
 		--add-icmp-block-inversion
+		--add-rich-rule='rule family=ipv4 service name=dhcp accept'
 		)
 
 	if chroot "command -v firewalld" &>/dev/null; then
@@ -324,11 +350,12 @@ svc_firewall() {
 		for r in "${RULESET[@]}"; do
 			chroot "firewall-offline-cmd $r"
 		done
+
 		status
 	fi
 }
 
-svc_firejail() {
+secure_firejail() {
 	if chroot "command -v firejail" &>/dev/null; then
 		echo -e "\nConfiguring Firejail ...\n"
 
@@ -337,6 +364,7 @@ svc_firejail() {
 		chroot "chown root:firejail /usr/bin/firejail"
 		chroot "chmod 4750 /usr/bin/firejail"
 		chroot "firecfg"
+
 		status
 	fi
 }
@@ -356,6 +384,7 @@ user_dotfiles() {
 			mkdir -p "$(dirname "$dest")"
 			sed -e "s|<user>|${NAME}|" "$file" > "$dest"
 		done
+
 		status
 	fi
 }
@@ -365,6 +394,7 @@ user_permissions() {
 
 	chroot "chown -R $NAME:$NAME /home/$NAME"
 	chroot "chmod -R 750 /home/$NAME"
+
 	status
 }
 
@@ -375,6 +405,7 @@ user_no_recents() {
 
 	truncate -s 0 "$recent"
 	chattr +i "$recent" 2>/dev/null || true
+
 	status
 }
 
@@ -384,6 +415,7 @@ user_firefox() {
 	telemetry="/mnt/usr/lib/firefox/{crashreporter,pingsender}"
 
 	[[ -f $telemetry ]] && rm -f "$telemetry"
+
 	status
 }
 
@@ -391,7 +423,7 @@ user_firefox() {
 #    SETUP COMPLETE
 #================================================
 
-finish() {
+complete() {
 	clear
 	echo -e "\n Setup complete!\n\n Press any key to reboot..."
 	read -n 1 -rs
@@ -404,11 +436,13 @@ finish() {
 
 main() {
 	banner
-	user_confirm
-	user_namespace
+	prompt_confirm
+	prompt_namespace
+	prompt_disks
+	prompt_fstypes
 
-	disk_select
 	disk_partition
+#	disk_encryption
 	disk_format
 	disk_mount
 
@@ -417,22 +451,23 @@ main() {
 	install_theme
 	install_icons
 
-	sys_accounts
-	sys_configs
-	sys_permissions
-	sys_fstab
-	sys_grub
+	config_accounts
+	config_templates
+	config_fstab
+	config_grub
+	config_services
 
-	svc_enable
-	svc_firewall
-	svc_firejail
+	secure_permissions
+	secure_firewall
+	secure_firejail
+#	secure_nordvpn
 
 	user_dotfiles
 	user_permissions
 	user_no_recents
 	user_firefox
 
-	finish
+	complete
 }
 
 main "$@"
