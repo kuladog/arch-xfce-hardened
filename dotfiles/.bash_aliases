@@ -1,10 +1,10 @@
 # ~/.bash_aliases
 
+alias sano='sudo -B nano'
+alias sedit='sudo xdg-open'
 alias get='sudo pacman -S'
 alias rem='sudo pacman -Rns'
 alias upd='sudo pacman -Syu --noconfirm'
-alias sano='sudo -B nano'
-alias sedit='sudo xdg-open'
 alias scurl='curl --tlsv1.3 --proto =https -LO'
 alias difs='diff -r --side-by-side --color'
 alias ll='ls -la'
