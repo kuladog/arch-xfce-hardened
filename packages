@@ -49,6 +49,7 @@ INSTALL=(
 	transmission-gtk
 	viewnior
 	vlc
+	vlc-plugin-ffmpeg
 	xarchiver
 	xed
 )
