@@ -340,7 +340,6 @@ secure_firewall() {
 		--set-default-zone=drop
 		--add-service=https
 		--add-icmp-block-inversion
-		--add-rich-rule='rule family=ipv4 service name=dhcp accept'
 		)
 
 	if chroot "command -v firewalld" &>/dev/null; then
