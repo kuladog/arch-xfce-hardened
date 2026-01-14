@@ -4,11 +4,10 @@ blacklist /usr/local/bin
 blacklist /usr/local/sbin
 
 apparmor
-ipc-namespace
-machine-id
-nonewprivs
 seccomp
-x11 xorg
+ipc-namespace
+nonewprivs
+machine-id
 
 private-tmp
 
