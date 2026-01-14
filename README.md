@@ -12,7 +12,7 @@ and `configs` directories.
 Read through the [install script](https://github.com/kuladog/arch-xfce-hardened/blob/main/install.sh)
 to make sure it's gonna do what you want.
 
-![alt text](screen.png "Arch Xfce")
+![alt text](screen.png "Arch-X Hardened")
 
 ### Usage
 
