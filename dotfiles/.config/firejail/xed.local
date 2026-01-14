@@ -1,11 +1,12 @@
 # ~/.config/firejail/xed.local
 
-noblacklist ${HOME}/
+include ${HOME}/.config/firejail/global.local
 
-apparmor
+mkdir ${HOME}/.config/xed
+
 caps.drop all
-machine-id
 net none
 protocol unix
 
-private-tmp
+private-bin xed
+private-etc fonts

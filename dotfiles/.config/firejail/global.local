@@ -1,6 +1,16 @@
 # ~/.config/firejail/global.local
 
+blacklist /usr/local/bin
+blacklist /usr/local/sbin
+
 apparmor
+ipc-namespace
 machine-id
 nonewprivs
+seccomp
 x11 xorg
+
+private-tmp
+
+noexec ${RUNUSER}
+noexec /tmp

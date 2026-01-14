@@ -1,11 +1,10 @@
 # ~/.config/firejail/atril.local
 
-noblacklist ${HOME}/
+include ${HOME}/.config/firejail/global.local
 
-apparmor
 caps.drop all
-machine-id
 net none
 protocol unix
 
-private-tmp
+private-bin atril
+private-etc alternatives,fonts,X11

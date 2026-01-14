@@ -3,7 +3,7 @@
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
-#  Revised: 2026-01-10
+#  Revised: 2026-01-13
 #
 
 set -euo pipefail
@@ -97,6 +97,7 @@ prompt_fstypes() {
 		echo "Invalid filesystem."
 	done
 }
+
 #================================================
 #    DISK MANAGEMENT
 #================================================
@@ -306,7 +307,7 @@ config_services() {
 }
 
 #================================================
-#    CONFIGURE SERVICES
+#    SYSTEM SECURITY
 #================================================
 
 secure_permissions() {

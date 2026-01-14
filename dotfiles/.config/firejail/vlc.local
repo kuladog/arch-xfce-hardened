@@ -1,5 +1,13 @@
 # ~/.config/firejail/vlc.local
 
-apparmor
+include ${HOME}/.config/firejail/global.local
+
+mkdir ${HOME}/.config/vlc
+
+caps.drop all
 net none
 protocol unix
+
+private-bin vlc
+private-etc alternatives,fonts,X11
+
