@@ -3,8 +3,8 @@
 GRUB_TIMEOUT=3
 GRUB_DEFAULT=0
 GRUB_DISTRIBUTOR="Arch-X"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet apparmor=1 security=apparmor lockdown=integrity lsm=lockdown,yama,apparmor"
-GRUB_CMDLINE_LINUX="audit=1 module.sig_enforce=1 force_randomize=on"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=confidentiality lsm=lockdown,yama,apparmor"
+GRUB_CMDLINE_LINUX="apparmor=1 audit=1 module.sig_enforce=1 force_randomize=on"
 GRUB_DISABLE_RECOVERY=false
 GRUB_TERMINAL=console
 GRUB_GFXMODE=auto
