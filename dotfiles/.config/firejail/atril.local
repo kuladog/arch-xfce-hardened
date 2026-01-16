@@ -7,4 +7,4 @@ net none
 protocol unix
 
 private-bin atril
-private-etc alternatives,fonts,X11
+private-etc fonts,X11

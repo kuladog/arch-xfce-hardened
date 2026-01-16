@@ -6,8 +6,8 @@ blacklist /usr/local/sbin
 apparmor
 seccomp
 ipc-namespace
-nonewprivs
 machine-id
+nonewprivs
 
 private-tmp
 

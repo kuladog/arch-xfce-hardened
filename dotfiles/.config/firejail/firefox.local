@@ -1,22 +1,6 @@
 # ~/.config/firejail/firefox.local
 
-# noexec ${HOME} <--- breaks DRM binaries
-ignore noexec ${HOME}
-
-?BROWSER_DISABLE_U2F: nou2f
-
-#include ${HOME}/.config/firejail/global.local
-
-caps.drop all
-disable-mnt
-ipc-namespace
-machine-id
-netfilter
-nogroups
-nonewprivs
-noroot
-seccomp
-seccomp.block-secondary
+include ${HOME}/.config/firejail/global.local
 
 mkdir ${HOME}/.config/mozilla/firefox
 
@@ -27,9 +11,24 @@ whitelist ${HOME}/.config/mozilla/firefox
 whitelist ${HOME}/.config/gtk-3.0
 whitelist ${HOME}/.themes
 
+caps.drop all
+disable-mnt
+ipc-namespace
+machine-id
+netfilter
+nogroups
+nonewprivs
+noroot
+nou2f
+seccomp
+seccomp.block-secondary
+
 private-bin firefox,env,sh,bash,which,dbus-launch,dbus-send
-private-etc hosts,passwd,mime.types,fonts,firefox,xdg,gtk-3.0,X11,pulse,alternatives,localtime,nsswitch.conf,resolv.conf
+private-etc hosts,passwd,mime.types,fonts,firefox,xdg,gtk-3.0,X11,pulse,alternatives,localtime,nsswitch.conf
 private-tmp
 
 noexec ${RUNUSER}
 noexec /tmp
+
+# noexec ${HOME} <--- breaks DRM binaries
+ignore noexec ${HOME}

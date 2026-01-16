@@ -9,5 +9,5 @@ net none
 protocol unix
 
 private-bin vlc
-private-etc alternatives,fonts,X11
+private-etc fonts,X11
 
