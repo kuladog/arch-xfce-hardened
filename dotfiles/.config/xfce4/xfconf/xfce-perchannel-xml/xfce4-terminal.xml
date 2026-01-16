@@ -1,20 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.1" encoding="UTF-8"?>
 
 <channel name="xfce4-terminal" version="1.0">
   <property name="background-mode" type="string" value="TERMINAL_BACKGROUND_TRANSPARENT"/>
-  <property name="background-darkness" type="double" value="0.90000000000000002"/>
+  <property name="background-darkness" type="double" value="0.84999999999999998"/>
   <property name="color-foreground" type="string" value="#dcdcdc"/>
   <property name="color-background" type="string" value="#000000000000"/>
   <property name="color-cursor" type="string" value="#dcdcdc"/>
   <property name="color-palette" type="string" value="rgb(63,63,63);rgb(112,80,80);rgb(96,180,138);rgb(223,175,143);rgb(154,184,215);rgb(220,140,195);rgb(140,208,211);rgb(220,220,220);rgb(112,144,128);rgb(220,163,163);rgb(114,213,163);rgb(240,223,175);rgb(148,191,243);rgb(236,147,211);rgb(147,224,227);rgb(255,255,255)"/>
-  <property name="font-use-system" type="bool" value="true"/>
+  <property name="font-use-system" type="bool" value="false"/>
   <property name="misc-always-show-tabs" type="bool" value="false"/>
   <property name="misc-bell" type="bool" value="false"/>
   <property name="misc-bell-urgent" type="bool" value="false"/>
   <property name="misc-borders-default" type="bool" value="true"/>
   <property name="misc-cursor-blinks" type="bool" value="true"/>
   <property name="misc-cursor-shape" type="string" value="TERMINAL_CURSOR_SHAPE_IBEAM"/>
-  <property name="misc-default-geometry" type="string" value="80x32"/>
+  <property name="misc-default-geometry" type="string" value="66x24"/>
   <property name="misc-inherit-geometry" type="bool" value="false"/>
   <property name="misc-menubar-default" type="bool" value="false"/>
   <property name="misc-mouse-autohide" type="bool" value="false"/>
@@ -37,4 +37,5 @@
   <property name="scrolling-bar" type="string" value="TERMINAL_SCROLLBAR_NONE"/>
   <property name="title-mode" type="string" value="TERMINAL_TITLE_REPLACE"/>
   <property name="tab-activity-color" type="string" value="#8f8ff0f0a4a4"/>
+  <property name="font-name" type="string" value="Monospace 12"/>
 </channel>
