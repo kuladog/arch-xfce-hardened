@@ -47,5 +47,4 @@ bash install.sh
 ### Disclaimer
 
 This was just a fun project to get some bash time in... and kill off some pandemic
-boredom. It has limitations, but does what it's supposed to do—for me—perfectly.
-:smiley:
+boredom. It has limitations, but does what it's supposed to do—for me—perfectly. :smiley:
