@@ -2,11 +2,21 @@
 
 include ${HOME}/.config/firejail/global.local
 
-mkdir ${HOME}/.config/viewnior
-
-caps.drop all
 net none
 protocol unix
 
-private-bin viewnior,jpegexiforient,jpegtran,fonts
-private-lib imlib2
+private-tmp
+private-bin viewnior,jpegexiforient,jpegtran
+private-lib imlib2,libjpeg,libpng,libtiff
+private-etc
+
+read-only ${HOME}
+read-write ${HOME}/Pictures
+
+noexec /tmp
+noexec ${HOME}
+
+caps.drop all
+seccomp ptrace,open
+nogroups
+noroot

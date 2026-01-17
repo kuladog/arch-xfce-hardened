@@ -3,7 +3,7 @@
 #  install.sh
 #
 #  Hardened Arch + XFCE Installer
-#  Revised: 2026-01-13
+#  Revised: 2026-01-16
 #
 
 set -euo pipefail

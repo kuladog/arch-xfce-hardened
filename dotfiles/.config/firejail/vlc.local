@@ -2,12 +2,20 @@
 
 include ${HOME}/.config/firejail/global.local
 
-mkdir ${HOME}/.config/vlc
-
-caps.drop all
 net none
 protocol unix
 
-private-bin vlc
-private-etc fonts,X11
+private-tmp
+private-bin vlc,vlc-wrapper,ffmpeg,dbus-launch,dbus-send
+private-lib libvlc,libavcodec,libvpx,libvorbis,libmp3lame,libfdk-aac,libde265
+private-etc
 
+read-only ${HOME}
+
+noexec /tmp
+noexec ${HOME}
+
+caps.drop all
+seccomp ptrace,open
+nogroups
+noroot

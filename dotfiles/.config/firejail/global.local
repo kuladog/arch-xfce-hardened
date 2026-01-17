@@ -3,7 +3,6 @@
 blacklist /usr/local/bin
 blacklist /usr/local/sbin
 
-apparmor
 seccomp
 ipc-namespace
 machine-id
@@ -11,5 +10,11 @@ nonewprivs
 
 private-tmp
 
+caps.drop all
+netfilter
+noroot
+nogroups
+
 noexec ${RUNUSER}
 noexec /tmp
+

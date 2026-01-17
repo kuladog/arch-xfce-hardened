@@ -1,4 +1,4 @@
-# ~/.config/firejail/firefox.local
+# ~/.config/firejail/firefox-esr.local
 
 include ${HOME}/.config/firejail/global.local
 
@@ -8,7 +8,7 @@ ignore noexec ${HOME}
 noexec ${DOWNLOADS}
 
 private-tmp
-private-bin firefox,env,sh,bash,dbus-launch,dbus-send
+private-bin firefox-esr,env,sh,bash,dbus-launch,dbus-send
 private-lib libxul.so,libmozglue.so,libmozjs.so
 
 private-etc mime.types,fonts,firefox,xdg,gtk-3.0,X11,pulse

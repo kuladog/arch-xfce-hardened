@@ -2,9 +2,20 @@
 
 include ${HOME}/.config/firejail/global.local
 
-caps.drop all
 net none
 protocol unix
 
-private-bin atril
-private-etc fonts,X11
+private-tmp
+private-bin atril,evince,libpoppler,libcairo,libjpeg
+private-lib libpoppler,libcairo,libjpeg,libtiff
+private-etc
+
+read-only ${HOME}
+
+noexec /tmp
+noexec ${HOME}
+
+caps.drop all
+seccomp ptrace,open
+noroot
+nogroups
