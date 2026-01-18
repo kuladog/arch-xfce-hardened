@@ -1,6 +1,6 @@
 # ~/.config/firejail/xed.local
 
-include ${HOME}/.config/firejail/global.local
+include globals.local
 
 net none
 protocol unix
@@ -12,10 +12,14 @@ private-etc
 
 read-write ${HOME}
 
-noexec /tmp
-noexec ${HOME}
-
 caps.drop all
-seccomp ptrace,open
+seccomp
+nonewprivs
 noroot
 nogroups
+
+private-cache
+private-dev
+
+noexec /tmp
+noexec ${HOME}

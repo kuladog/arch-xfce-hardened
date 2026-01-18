@@ -1,6 +1,6 @@
 # ~/.config/firejail/vlc.local
 
-include ${HOME}/.config/firejail/global.local
+include globals.local
 
 net none
 protocol unix
@@ -16,6 +16,12 @@ noexec /tmp
 noexec ${HOME}
 
 caps.drop all
-seccomp ptrace,open
-nogroups
+seccomp
+seccomp.block-secondary
+disable-mnt
+nonewprivs
 noroot
+nogroups
+
+private-cache
+private-dev

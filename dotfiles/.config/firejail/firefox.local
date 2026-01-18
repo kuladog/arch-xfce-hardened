@@ -1,31 +1,32 @@
 # ~/.config/firejail/firefox.local
 
-include ${HOME}/.config/firejail/global.local
+include globals.local
 
 # noexec ${HOME} <--- breaks DRM binaries
 ignore noexec ${HOME}
 
 noexec ${DOWNLOADS}
 
+netfilter
+protocol unix,inet
+
 private-tmp
 private-bin firefox,env,sh,bash,dbus-launch,dbus-send
 private-lib libxul.so,libmozglue.so,libmozjs.so
+private-etc mime.types,fonts,firefox,xdg,gtk-3.0,pulse,@tls-ca,@x11
 
-private-etc mime.types,fonts,firefox,xdg,gtk-3.0,X11,pulse
-private-opt firefox-esr
-
+seccomp
+seccomp.block-secondary
 caps.drop all
-disable-mnt
 ipc-namespace
 machine-id
-netfilter
 nonewprivs
 noroot
 nogroups
+no3d
 nou2f
 
-seccomp ptrace,open
-seccomp.block-secondary
+disable-mnt
 
 noexec ${RUNUSER}
 noexec /tmp

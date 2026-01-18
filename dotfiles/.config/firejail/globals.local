@@ -1,4 +1,4 @@
-# ~/.config/firejail/global.local
+# ~/.config/firejail/globals.local
 
 blacklist /usr/local/bin
 blacklist /usr/local/sbin
@@ -6,15 +6,19 @@ blacklist /usr/local/sbin
 seccomp
 ipc-namespace
 machine-id
-nonewprivs
+netfilter
 
 private-tmp
 
 caps.drop all
-netfilter
+nonewprivs
 noroot
 nogroups
+noautopulse
+noprinters
+noinput
 
 noexec ${RUNUSER}
 noexec /tmp
 
+restrict-namespaces

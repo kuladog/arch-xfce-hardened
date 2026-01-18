@@ -1,6 +1,6 @@
 # ~/.config/firejail/viewnior.local
 
-include ${HOME}/.config/firejail/global.local
+include globals.local
 
 net none
 protocol unix
@@ -11,12 +11,26 @@ private-lib imlib2,libjpeg,libpng,libtiff
 private-etc
 
 read-only ${HOME}
+read-write ${HOME}/Downloads
 read-write ${HOME}/Pictures
+
+seccomp
+seccomp.block-secondary
+
+caps.drop all
+nonewprivs
+noroot
+nogroups
+no3d
+nodvd
+noinput
+nosound
+notv
+nou2f
+novideo
+
+disable-mnt
 
 noexec /tmp
 noexec ${HOME}
 
-caps.drop all
-seccomp ptrace,open
-nogroups
-noroot
