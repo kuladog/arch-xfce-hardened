@@ -20,5 +20,3 @@ noinput
 
 noexec ${RUNUSER}
 noexec /tmp
-
-restrict-namespaces

@@ -16,7 +16,6 @@ read-write ${HOME}/Pictures
 
 seccomp
 seccomp.block-secondary
-
 caps.drop all
 nonewprivs
 noroot
@@ -30,6 +29,7 @@ nou2f
 novideo
 
 disable-mnt
+restrict-namespaces
 
 noexec /tmp
 noexec ${HOME}

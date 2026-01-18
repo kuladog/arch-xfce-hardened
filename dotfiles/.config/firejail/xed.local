@@ -19,7 +19,3 @@ noroot
 nogroups
 
 private-cache
-private-dev
-
-noexec /tmp
-noexec ${HOME}

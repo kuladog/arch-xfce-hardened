@@ -12,9 +12,6 @@ private-etc
 
 read-only ${HOME}
 
-noexec /tmp
-noexec ${HOME}
-
 caps.drop all
 seccomp
 seccomp.block-secondary
@@ -22,6 +19,8 @@ disable-mnt
 nonewprivs
 noroot
 nogroups
+
+restrict-namespaces
 
 private-cache
 private-dev

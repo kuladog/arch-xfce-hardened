@@ -14,7 +14,6 @@ read-only ${HOME}
 
 seccomp
 seccomp.block-secondary
-
 caps.drop all
 nonewprivs
 noroot
@@ -28,5 +27,4 @@ nou2f
 novideo
 
 disable-mnt
-
-noexec /tmp
+restrict-namespaces

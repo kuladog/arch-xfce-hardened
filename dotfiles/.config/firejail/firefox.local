@@ -13,7 +13,7 @@ protocol unix,inet
 private-tmp
 private-bin firefox,env,sh,bash,dbus-launch,dbus-send
 private-lib libxul.so,libmozglue.so,libmozjs.so
-private-etc mime.types,fonts,firefox,xdg,gtk-3.0,pulse,@tls-ca,@x11
+private-etc hosts,mime.types,fonts,firefox,xdg,gtk-3.0,pulse,@tls-ca,@x11
 
 seccomp
 seccomp.block-secondary
@@ -24,7 +24,12 @@ nonewprivs
 noroot
 nogroups
 no3d
+nodvd
+noinput
+nosound
+notv
 nou2f
+novideo
 
 disable-mnt
 
