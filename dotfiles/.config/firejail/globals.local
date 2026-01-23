@@ -3,14 +3,13 @@
 blacklist /usr/local/bin
 blacklist /usr/local/sbin
 
+private-tmp
+
 seccomp
+caps.drop all
 ipc-namespace
 machine-id
 netfilter
-
-private-tmp
-
-caps.drop all
 nonewprivs
 noroot
 nogroups

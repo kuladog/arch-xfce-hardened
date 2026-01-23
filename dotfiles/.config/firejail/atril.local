@@ -2,29 +2,9 @@
 
 include globals.local
 
-net none
-protocol unix
-
-private-tmp
-private-bin atril,evince,libpoppler,libcairo,libjpeg
-private-lib libpoppler,libcairo,libjpeg,libtiff
-private-etc
-
 read-only ${HOME}
 
-seccomp
+net none
+protocol unix
 seccomp.block-secondary
-caps.drop all
-nonewprivs
-noroot
-nogroups
-no3d
-nodvd
-noinput
-nosound
-notv
-nou2f
-novideo
-
 disable-mnt
-restrict-namespaces

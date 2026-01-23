@@ -2,25 +2,15 @@
 
 include globals.local
 
-net none
-protocol unix
-
-private-tmp
-private-bin vlc,vlc-wrapper,ffmpeg,dbus-launch,dbus-send
-private-lib libvlc,libavcodec,libvpx,libvorbis,libmp3lame,libfdk-aac,libde265
-private-etc
-
 read-only ${HOME}
 
-caps.drop all
-seccomp
-seccomp.block-secondary
-disable-mnt
-nonewprivs
-noroot
-nogroups
+private-bin vlc,vlc-wrapper,ffmpeg
+private-etc
 
-restrict-namespaces
+net none
+protocol unix
+seccomp.block-secondary
+
+disable-mnt
 
 private-cache
-private-dev

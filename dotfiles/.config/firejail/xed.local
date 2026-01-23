@@ -2,20 +2,12 @@
 
 include globals.local
 
-net none
-protocol unix
-
-private-tmp
-private-bin xed,xdg-open
-private-lib libgtk-3.so,libc.so,libglib-2.0.so
-private-etc
-
 read-write ${HOME}
 
-caps.drop all
-seccomp
-nonewprivs
-noroot
-nogroups
+private-bin xed,xdg-open
+private-etc
+
+net none
+protocol unix
 
 private-cache
