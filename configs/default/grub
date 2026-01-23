@@ -4,7 +4,7 @@ GRUB_TIMEOUT=0
 GRUB_TIMEOUT_STYLE=hidden
 GRUB_DEFAULT=0
 GRUB_DISTRIBUTOR="Arch-X"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=confidentiality lsm=yama,apparmor,lockdown module.sig_enforce=1"
-GRUB_CMDLINE_LINUX=""
+GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=confidentiality lsm=yama,apparmor,lockdown"
+GRUB_CMDLINE_LINUX="intel_iommu=on iommu=strict mitigations=auto,nosmt module.sig_enforce=1"
 GRUB_DISABLE_RECOVERY=true
 GRUB_TERMINAL=console

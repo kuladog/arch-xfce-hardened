@@ -1,9 +1,8 @@
 # /etc/sudoers.d/user_local
 
 Defaults  use_pty
-Defaults  secure_path=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+Defaults  secure_path=/usr/sbin:/usr/bin
 Defaults  umask=0077
-Defaults  umask_override
+Defaults  !shell_noargs
 
-root   ALL=(ALL) ALL
 %wheel ALL=(root) NOPASSWD: ALL
