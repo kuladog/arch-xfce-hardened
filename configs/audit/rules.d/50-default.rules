@@ -3,7 +3,6 @@
 # Authentication
 -w /etc/group -p wa -k group_changes
 -w /etc/gshadow -p wa -k gshadow_changes
--w /etc/ssh/sshd_config -p wa -k ssh_config_changes
 -w /etc/sudoers -p wa -k sudoers_changes
 
 # Passwords
