@@ -8,3 +8,4 @@ GRUB_CMDLINE_LINUX_DEFAULT="quiet lockdown=confidentiality lsm=yama,apparmor,loc
 GRUB_CMDLINE_LINUX="intel_iommu=on iommu=strict mitigations=auto,nosmt module.sig_enforce=1"
 GRUB_DISABLE_RECOVERY=true
 GRUB_TERMINAL=console
+GRUB_GFXMODE=auto

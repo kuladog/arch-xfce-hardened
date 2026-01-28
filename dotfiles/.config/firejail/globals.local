@@ -6,10 +6,10 @@ blacklist /usr/local/sbin
 private-tmp
 
 seccomp
+netfilter
 caps.drop all
 ipc-namespace
 machine-id
-netfilter
 nonewprivs
 noroot
 nogroups

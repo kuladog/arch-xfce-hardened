@@ -1,23 +1,23 @@
 # /etc/audit/rules.d/50-default.rules
 
-# Access to passwords
--w /etc/passwd -p wa -k passwd_changes
--w /etc/shadow -p wa -k shadow_changes
-
-# System authentication
+# Authentication
 -w /etc/group -p wa -k group_changes
 -w /etc/gshadow -p wa -k gshadow_changes
 -w /etc/ssh/sshd_config -p wa -k ssh_config_changes
 -w /etc/sudoers -p wa -k sudoers_changes
 
-# Failed login attempts
--w /var/log/faillog -p wa -k failed_logins
--w /var/log/secure -p wa -k auth_log
+# Passwords
+-w /etc/passwd -p wa -k passwd_changes
+-w /etc/shadow -p wa -k shadow_changes
 
-# Firewalld configuration
+# Firewalld
 -w /etc/firewalld/ -p wa -k nftables_changes
 
-# Kernel module loading
+# Kernel modules
 -w /usr/sbin/modprobe -p x -k module_changes
 -w /usr/sbin/insmod -p x -k module_changes
 -w /usr/sbin/rmmod -p x -k module_changes
+
+# Failed logins
+-w /var/log/faillog -p wa -k failed_logins
+-w /var/log/secure -p wa -k auth_log
