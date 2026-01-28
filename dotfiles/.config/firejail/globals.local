@@ -7,10 +7,12 @@ private-tmp
 
 seccomp
 netfilter
+apparmor
 caps.drop all
+nonewprivs
 ipc-namespace
 machine-id
-nonewprivs
+
 noroot
 nogroups
 noautopulse
