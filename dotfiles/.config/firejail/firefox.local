@@ -9,3 +9,5 @@ private-etc firefox,mime.types,os-release,@tls-ca,@x11
 
 protocol inet
 seccomp.block-secondary
+
+disable-mnt
