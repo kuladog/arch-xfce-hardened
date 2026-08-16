@@ -5,19 +5,18 @@ blacklist /usr/local/sbin
 
 private-tmp
 
-seccomp
-netfilter
 apparmor
 caps.drop all
-nonewprivs
 ipc-namespace
 machine-id
+netfilter
+seccomp
 
 noroot
 nogroups
-noautopulse
-noprinters
+nonewprivs
 noinput
+noautopulse
 
 noexec ${RUNUSER}
 noexec /tmp
