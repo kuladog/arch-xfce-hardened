@@ -6,4 +6,4 @@ Defaults secure_path=/usr/sbin:/usr/bin:/sbin:/bin
 Defaults umask=0077
 Defaults shell_noargs
 
-<user> ALL=(root) NOPASSWD: /usr/bin/pacman
+<user> ALL=(root) NOPASSWD: /usr/bin/pacman -Syu
